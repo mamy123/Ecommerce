@@ -64,6 +64,24 @@
 
         <!-- Error message -->
 
+        <!-- Password Label -->
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dip"
+            android:text="@string/confirmPwd" />
+        <!-- Password TextField -->
+
+        <EditText
+            android:id="@+id/confirmPassword"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="Confirm Password"
+            android:inputType="textPassword" />
+
+        <!-- Error message -->
+
         <TextView
             android:id="@+id/register_error"
             android:layout_width="fill_parent"

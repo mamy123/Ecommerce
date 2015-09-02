@@ -10,6 +10,7 @@
     <string name="name">Name</string>
     <string name="email">Email</string>
     <string name="pwd">Password</string>
+    <string name="confirmPwd">Confirm Password</string>
     <string name="btnRegister">Register</string>
     <string name="title_activity_register">RegisterActivity</string>
 </resources>

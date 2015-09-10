@@ -3,15 +3,11 @@ package com.example.gmithighracks.ecommerce;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 import java.util.HashMap;
 import java.util.Map;
@@ -19,7 +15,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.android.volley.Request;
-import com.android.volley.Request.Method;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
@@ -27,8 +22,6 @@ import com.android.volley.toolbox.StringRequest;
 import com.example.gmithighracks.ecommerce.app.AppConfig;
 import com.example.gmithighracks.ecommerce.app.AppController;
 import com.example.gmithighracks.ecommerce.helper.SessionManager;
-
-import org.json.JSONObject;
 
 
 public class LoginActivity extends Activity {
@@ -61,7 +54,7 @@ public class LoginActivity extends Activity {
         // Check if user is already logged in or not
         if (session.isLoggedIn()) {
             // User is already logged in. Take him to main activity
-            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+            Intent intent = new Intent(LoginActivity.this, EmployeeHomeActivity.class);
             startActivity(intent);
             finish();
         }
@@ -91,6 +84,7 @@ public class LoginActivity extends Activity {
         btnLinkToRegister.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
+
                 Intent i = new Intent(getApplicationContext(),
                         RegisterActivity.class);
                 startActivity(i);
@@ -130,7 +124,7 @@ public class LoginActivity extends Activity {
 
                         // Launch main activity
                         Intent intent = new Intent(LoginActivity.this,
-                                HomeActivity.class);
+                                EmployeeHomeActivity.class);
                         startActivity(intent);
                         finish();
                     } else {
@@ -182,4 +176,10 @@ public class LoginActivity extends Activity {
         if (pDialog.isShowing())
             pDialog.dismiss();
     }
+
+    public void navigatetoRegisterActivity(View view) {
+
+    }
+
+
 }

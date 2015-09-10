@@ -7,10 +7,22 @@
     <string name="title_activity_home">HomeActivity</string>
     <string name="register_title">Register</string>
     <string name="login_title">Login</string>
-    <string name="name">Name</string>
+    <string name="username">username</string>
+    <string name="firstName">First Name</string>
+    <string name="surname">SureName</string>
+    <string name="pwd_equal">Correct</string>
+    <string name="pwd_not_equal">Wrong password</string>
     <string name="email">Email</string>
     <string name="pwd">Password</string>
     <string name="confirmPwd">Confirm Password</string>
+    <string name="acceptPwd">Acceptable Password</string>
+    <string name="area">Area</string>
+    <string name="city">City</string>
+    <string name="userType">User Type</string>
+    <string name="employeeBtn">Employee</string>
+    <string name="employerBtn">Employer</string>
     <string name="btnRegister">Register</string>
     <string name="title_activity_register">RegisterActivity</string>
+    <string name="title_activity_employer_home">EmployerHomeActivity</string>
+    <string name="profile_title">Profile</string>
 </resources>

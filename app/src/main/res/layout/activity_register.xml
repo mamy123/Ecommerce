@@ -23,13 +23,43 @@
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="@string/name" />
+            android:text="@string/username" />
         <!-- Name TextField -->
 
         <EditText
-            android:id="@+id/registerName"
+            android:id="@+id/username"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content" android:hint="Enter your Name"/>
+            android:layout_height="wrap_content" android:hint="Enter your username"/>
+
+        <!-- Email Label -->
+
+        <!-- Name Label -->
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/firstName" />
+        <!-- Name TextField -->
+
+        <EditText
+            android:id="@+id/firstName"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" android:hint="Enter your First Name"/>
+
+        <!-- Email Label -->
+
+        <!-- Name Label -->
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/surname" />
+        <!-- Name TextField -->
+
+        <EditText
+            android:id="@+id/surName"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" android:hint="Enter your Last Name"/>
 
         <!-- Email Label -->
 
@@ -71,16 +101,92 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="15dip"
             android:text="@string/confirmPwd" />
+
         <!-- Password TextField -->
 
-        <EditText
-            android:id="@+id/confirmPassword"
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/parentView"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical" >
+            <EditText
+                android:id="@+id/confirmPassword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Confirm Password"
+                android:inputType="textPassword"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <!-- Error message -->
+
+            <TextView
+                android:layout_width="141dp"
+                android:layout_height="wrap_content"
+                android:text="@string/acceptPwd"
+                android:layout_gravity="right"
+                android:id="@+id/accPwd"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+
+        </RelativeLayout>
+
+        <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:hint="Confirm Password"
-            android:inputType="textPassword" />
+            android:layout_marginTop="15dip"
+            android:text="@string/area" />
+        <!-- Area TextField -->
 
-        <!-- Error message -->
+        <EditText
+            android:id="@+id/area"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter your area" />
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dip"
+            android:text="@string/area" />
+        <!-- City TextField -->
+
+        <EditText
+            android:id="@+id/city"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter your city" />
+
+        <!-- User Type field -->
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="10dip"
+            android:textStyle="bold"
+            android:text="@string/userType"
+            />
+
+        <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal">
+
+            <RadioButton android:id="@+id/radio_emploee"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/employeeBtn"
+                android:onClick="onRadioButtonClicked" />
+            <RadioButton android:id="@+id/radio_employer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/employerBtn"
+                android:onClick="onRadioButtonClicked"/>
+        </RadioGroup>
 
         <TextView
             android:id="@+id/register_error"
@@ -109,7 +215,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dip"
             android:background="@null"
-            android:onClick="navigatetoLoginActivity"
             android:text="Login"
             android:textColor="#228b22"
             android:textStyle="bold" />

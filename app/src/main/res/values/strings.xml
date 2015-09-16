@@ -9,7 +9,7 @@
     <string name="login_title">Login</string>
     <string name="username">username</string>
     <string name="firstName">First Name</string>
-    <string name="surname">SureName</string>
+    <string name="surname">Surname</string>
     <string name="pwd_equal">Correct</string>
     <string name="pwd_not_equal">Wrong password</string>
     <string name="email">Email</string>
@@ -24,5 +24,35 @@
     <string name="btnRegister">Register</string>
     <string name="title_activity_register">RegisterActivity</string>
     <string name="title_activity_employer_home">EmployerHomeActivity</string>
+
+
+    <!-- GCM Staff -->
+    <string name="already_registered">Device is already registered on server.</string>
+    <string name="gcm_registered">From GCM: device successfully registered!</string>
+    <string name="gcm_unregistered">From GCM: device successfully unregistered!</string>
+    <string name="gcm_message">From GCM: you got message!</string>
+    <string name="gcm_error">From GCM: error (%1$s).</string>
+    <string name="gcm_recoverable_error">From GCM: recoverable error (%1$s).</string>
+    <string name="gcm_deleted">From GCM: server deleted %1$d pending messages!</string>
+    <string name="server_registering">Trying (attempt %1$d/%2$d) to register device on Demo Server.</string>
+    <string name="server_registered">From Demo Server: successfully added device!</string>
+    <string name="server_unregistered">From Demo Server: successfully removed device!</string>
+    <string name="server_register_error">Could not register device on Demo Server after %1$d attempts.</string>
+    <string name="server_unregister_error">Could not unregister device on Demo Server (%1$s).</string>
+    <string name="gcm_send_message">Token retrieved and sent to server! You can now use gcmsender to
+        send downstream messages to this app.</string>
+    <string name="registering_message">Generating InstanceID token...</string>
+    <string name="token_error_message">An error occurred while either fetching the InstanceID token,
+        sending the fetched token to the server or subscribing to the PubSub topic. Please try
+        running the sample again.</string>
+
+    <!-- Employee Home -->
     <string name="profile_title">Profile</string>
+    <string name="employeeName">%1$s</string>
+    <string name="history">My work History</string>
+    <string name="btnHistory">Show Work History</string>
+    <string name="skillsTitle">My skills:</string>
+    <string name="title_activity_work_history">WorkHistoryActivity</string>
+    <string name="btnAddSkills">Add skills</string>
+
 </resources>

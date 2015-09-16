@@ -1,39 +1,24 @@
-package com.example.gmithighracks.ecommerce;
+package com.example.gmithighracks.ecommerce.service;
 
-import android.content.res.Resources;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.example.gmithighracks.ecommerce.helper.SQLiteHelper;
-import com.example.gmithighracks.ecommerce.helper.SessionManager;
+import com.example.gmithighracks.ecommerce.R;
 
-import java.util.HashMap;
-
-
-public class EmployeeHomeActivity extends ActionBarActivity {
-
-    private SQLiteHelper db;
-    private SessionManager session;
+public class WorkHistoryActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_employee_home);
-        Resources res = getResources();
-        db = new SQLiteHelper(getApplicationContext());
-
-        // session manager
-        session = new SessionManager(getApplicationContext());
-        HashMap<String, String> user = db.getUserDetails();
-        String text = String.format(res.getString(R.string.employeeName), user.get("firstName"));
+        setContentView(R.layout.activity_work_history);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_home, menu);
+        getMenuInflater().inflate(R.menu.menu_work_history, menu);
         return true;
     }
 

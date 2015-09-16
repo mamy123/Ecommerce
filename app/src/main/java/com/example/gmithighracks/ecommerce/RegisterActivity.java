@@ -8,14 +8,21 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.location.Location;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,9 +35,12 @@ import com.example.gmithighracks.ecommerce.app.AppConfig;
 import com.example.gmithighracks.ecommerce.app.AppController;
 import com.example.gmithighracks.ecommerce.helper.SQLiteHelper;
 import com.example.gmithighracks.ecommerce.helper.SessionManager;
+import com.example.gmithighracks.ecommerce.service.RegistrationIntentService;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
 
 
-public class RegisterActivity extends Activity {
+public class RegisterActivity extends AppCompatActivity {
 
     private static final String TAG = RegisterActivity.class.getSimpleName();
     private Button btnRegister;
@@ -49,6 +59,10 @@ public class RegisterActivity extends Activity {
     private SQLiteHelper db;
     private TextView error;
     private String userType;
+    private Location location;
+    private BroadcastReceiver mRegistrationBroadcastReceiver;
+    private TextView mInformationTextView;
+    private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -98,7 +112,7 @@ public class RegisterActivity extends Activity {
                 String city = cityInput.getText().toString();
 
 
-                if (!name.isEmpty() && !lastName.isEmpty() && !email.isEmpty() && !password.isEmpty() && !confirm.isEmpty() && !userType.isEmpty()) {
+                if (!name.isEmpty() && !lastName.isEmpty() && !email.isEmpty() && !password.isEmpty() && !confirm.isEmpty()) {
                     registerUser(user, name, lastName, email, password, area, city, userType);
                 } else {
                     Toast.makeText(getApplicationContext(),
@@ -161,97 +175,89 @@ public class RegisterActivity extends Activity {
      * */
     private void registerUser(final String username, final String name, final String surName, final String email,
                               final String password, final String area, final String city, final String usertype) {
+//        final Double longitude = location.getLongitude();
+  //      final Double latitude = location.getLatitude();
         // Tag used to cancel the request
-        String tag_string_req = "req_register";
+//        pDialog.setMessage("Registering ...");
+//        showDialog();
 
-        pDialog.setMessage("Registering ...");
-        showDialog();
 
-        StringRequest strReq = new StringRequest(Method.POST,
-                AppConfig.URL_REGISTER, new Response.Listener<String>() {
-
+        mRegistrationBroadcastReceiver = new BroadcastReceiver() {
             @Override
-            public void onResponse(String response) {
-                Log.d(TAG, "Register Response: " + response.toString());
-                hideDialog();
-
-                try {
-                    JSONObject jObj = new JSONObject(response);
-                    boolean error = jObj.getBoolean("error");
-                    if (!error) {
-                        // User successfully stored in MySQL
-                        // Now store the user in sqlite
-                        String uid = jObj.getString("uid");
-
-                        JSONObject user = jObj.getJSONObject("user");
-                        String userName = user.getString("username");
-                        String email = user.getString("email");
-                        String created_at = user
-                                .getString("created_at");
-
-                        // Inserting row in users table
-                        db.addUser(userName, email, uid, created_at);
-
-                        // Launch login activity
-                        if (usertype.equals("employee")) {
-                            Intent intent = new Intent(
-                                    RegisterActivity.this,
-                                    EmployeeHomeActivity.class);
-                            startActivity(intent);
-                            finish();
-                        }
-                        else {
-                            Intent intent = new Intent(
-                                    RegisterActivity.this,
-                                    EmployerHomeActivity.class);
-                            startActivity(intent);
-                            finish();
-                        }
-                    } else {
-
-                        // Error occurred in registration. Get the error
-                        // message
-                        String errorMsg = jObj.getString("error_msg");
-                        Toast.makeText(getApplicationContext(),
-                                errorMsg, Toast.LENGTH_LONG).show();
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
+            public void onReceive(Context context, Intent intent) {
+                //    mRegistrationProgressBar.setVisibility(ProgressBar.GONE);
+                SharedPreferences sharedPreferences =
+                        PreferenceManager.getDefaultSharedPreferences(context);
+                boolean sentToken = sharedPreferences
+                        .getBoolean(RegistrationIntentService.QuickstartPreferences.SENT_TOKEN_TO_SERVER, false);
+                if (sentToken) {
+                    mInformationTextView.setText(getString(R.string.gcm_send_message));
+                } else {
+                    mInformationTextView.setText(getString(R.string.token_error_message));
                 }
-
             }
-        }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e(TAG, "Registration Error: " + error.getMessage());
-                Toast.makeText(getApplicationContext(),
-                        error.getMessage(), Toast.LENGTH_LONG).show();
-                hideDialog();
-            }
-        }) {
-
-            @Override
-            protected Map<String, String> getParams() {
-                // Posting params to register url
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("tag", "register");
-                params.put("username",username);
-                params.put("name", name);
-                params.put("surname",surName);
-                params.put("email", email);
-                params.put("password", password);
-                params.put("area",area);
-                params.put("city",city);
-                params.put("usertype",usertype);
-
-                return params;
-            }
-
         };
+        mInformationTextView = (TextView) findViewById(R.id.informationTextView);
 
-        // Adding request to request queue
-        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+        if (checkPlayServices()) {
+            // Start IntentService to register this application with GCM.
+            Intent intent = new Intent(this, RegistrationIntentService.class);
+            intent.putExtra("username", username);
+            intent.putExtra("password", password);
+            intent.putExtra("fname",name);
+            intent.putExtra("surname",surName);
+            intent.putExtra("email",email);
+            intent.putExtra("area",area);
+            intent.putExtra("city",city);
+            intent.putExtra("userType",usertype);
+                    startService(intent);
+        }
+      //  hideDialog();
+
+    }
+
+    private void registerGcm(){
+//        mRegistrationBroadcastReceiver = new BroadcastReceiver() {
+//            @Override
+//            public void onReceive(Context context, Intent intent) {
+//            //    mRegistrationProgressBar.setVisibility(ProgressBar.GONE);
+//                SharedPreferences sharedPreferences =
+//                        PreferenceManager.getDefaultSharedPreferences(context);
+//                boolean sentToken = sharedPreferences
+//                        .getBoolean(RegistrationIntentService.QuickstartPreferences.SENT_TOKEN_TO_SERVER, false);
+//                if (sentToken) {
+//                    mInformationTextView.setText(getString(R.string.gcm_send_message));
+//                } else {
+//                    mInformationTextView.setText(getString(R.string.token_error_message));
+//                }
+//            }
+//        };
+//        mInformationTextView = (TextView) findViewById(R.id.informationTextView);
+//
+//        if (checkPlayServices()) {
+//            // Start IntentService to register this application with GCM.
+//            Intent intent = new Intent(this, RegistrationIntentService.class);
+//            intent.putExtra("username", usernameText.getText().toString());
+//            intent.putExtra("password",
+//            startService(intent);
+//        }
+
+    }
+
+    private boolean checkPlayServices() {
+        GoogleApiAvailability apiAvailability = GoogleApiAvailability.getInstance();
+        int resultCode = apiAvailability.isGooglePlayServicesAvailable(this);
+        if (resultCode != ConnectionResult.SUCCESS) {
+            if (apiAvailability.isUserResolvableError(resultCode)) {
+                apiAvailability.getErrorDialog(this, resultCode, PLAY_SERVICES_RESOLUTION_REQUEST)
+                        .show();
+            } else {
+                Log.i(TAG, "This device is not supported.");
+                finish();
+            }
+            return false;
+        }
+        return true;
     }
 
     private void showDialog() {
@@ -263,4 +269,5 @@ public class RegisterActivity extends Activity {
         if (pDialog.isShowing())
             pDialog.dismiss();
     }
+
 }

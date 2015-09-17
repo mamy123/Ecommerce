@@ -49,12 +49,18 @@ public class SessionManager {
     }
 
     public void setUsername(String username){
-        KEY_USERNAME = username;
+        editor.putString(KEY_USERNAME, username);
+        editor.commit();
     }
     public boolean isLoggedIn(){
         return pref.getBoolean(KEY_IS_LOGGEDIN, false);
     }
     public boolean isEmployee(){
         return pref.getBoolean(KEY_EMPLOYEE, false);
+    }
+
+    public void deleteSession(){
+        editor.clear();
+        editor.commit();
     }
 }

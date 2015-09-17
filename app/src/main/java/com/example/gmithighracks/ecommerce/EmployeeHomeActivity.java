@@ -1,5 +1,6 @@
 package com.example.gmithighracks.ecommerce;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -55,4 +56,13 @@ public class EmployeeHomeActivity extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+    public void logout(){
+        db.deleteUsers();
+        session.deleteSession();
+        Intent intent = new Intent(EmployeeHomeActivity.this, LoginActivity.class);
+        startActivity(intent);
+        finish();
+
+    }
+
 }

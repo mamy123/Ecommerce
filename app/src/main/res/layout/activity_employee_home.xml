@@ -77,6 +77,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:background="@null"
+        android:onClick="logout"
         android:text="logout"
         android:textColor="#228b22"
         android:textStyle="bold"

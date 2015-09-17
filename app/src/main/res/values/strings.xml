@@ -54,5 +54,6 @@
     <string name="skillsTitle">My skills:</string>
     <string name="title_activity_work_history">WorkHistoryActivity</string>
     <string name="btnAddSkills">Add skills</string>
+    <string name="title_activity_profile">ProfileActivity</string>
 
 </resources>

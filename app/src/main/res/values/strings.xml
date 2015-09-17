@@ -56,4 +56,13 @@
     <string name="btnAddSkills">Add skills</string>
     <string name="title_activity_profile">ProfileActivity</string>
 
+    <!-- Employee Home -->
+    <string name="profile_title2">Employer Profile</string>
+    <string name="employerName"></string>
+    <string name="competitions">My Competitions</string>
+    <string name="btnCompetitions">Show Competitions</string>
+    <string name="btnNewCompetition">Create new Competition</string>
+
+
+
 </resources>

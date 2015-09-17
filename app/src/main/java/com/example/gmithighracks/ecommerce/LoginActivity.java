@@ -153,7 +153,7 @@ public class LoginActivity extends Activity {
                         // Create login session
 
                         session.setLogin(true,userType);
-
+                        session.setUsername(username);
                         // Launch main activity
                         Intent intent = new Intent(LoginActivity.this,
                                 EmployeeHomeActivity.class);

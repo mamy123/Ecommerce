@@ -158,6 +158,7 @@ public class RegistrationIntentService extends IntentService {
 
 
                         session.setLogin(true,usertype);
+                        session.setUsername(userName);
 //                        hideDialog();
                         // Launch login activity
                         sendBroadcast(new Intent("loggedin"));

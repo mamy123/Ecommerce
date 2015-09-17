@@ -248,7 +248,7 @@ public class RegisterActivity extends AppCompatActivity {
                                         RegisterActivity.this, EmployeeHomeActivity.class);
                                 //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 startActivity(i);
-
+                                finish();
                             }
                             else {
 
@@ -257,7 +257,7 @@ public class RegisterActivity extends AppCompatActivity {
                                         EmployerHomeActivity.class);
                                 //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 startActivity(i);
-
+                                finish();
                             }
 
                         }

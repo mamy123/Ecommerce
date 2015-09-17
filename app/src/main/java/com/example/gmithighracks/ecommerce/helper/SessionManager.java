@@ -25,6 +25,7 @@ public class SessionManager {
     private static final String KEY_IS_LOGGEDIN = "isLoggedIn";
     private static final String KEY_EMPLOYEE = "employee";
     private static final String KEY_EMPLOYER = "employer";
+    private String KEY_USERNAME;
 
     public SessionManager(Context context) {
         this._context = context;
@@ -47,6 +48,9 @@ public class SessionManager {
         Log.d(TAG, "User login session modified!");
     }
 
+    public void setUsername(String username){
+        KEY_USERNAME = username;
+    }
     public boolean isLoggedIn(){
         return pref.getBoolean(KEY_IS_LOGGEDIN, false);
     }

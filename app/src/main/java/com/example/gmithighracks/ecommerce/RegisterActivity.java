@@ -263,7 +263,7 @@ public class RegisterActivity extends AppCompatActivity {
                         }
             }else{
 
-                Toast.makeText(getApplicationContext(),
+                Toast.makeText(context,
                        msg, Toast.LENGTH_LONG).show();
             }
         }

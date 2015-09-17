@@ -63,6 +63,8 @@ public class RegisterActivity extends AppCompatActivity {
     private BroadcastReceiver mRegistrationBroadcastReceiver;
     private TextView mInformationTextView;
     private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
+    private DataUpdateReceiver dataUpdateReceiver;
+    private static final int REFRESH_DATA_INTENT = 896;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -216,33 +218,6 @@ public class RegisterActivity extends AppCompatActivity {
 
     }
 
-    private void registerGcm(){
-//        mRegistrationBroadcastReceiver = new BroadcastReceiver() {
-//            @Override
-//            public void onReceive(Context context, Intent intent) {
-//            //    mRegistrationProgressBar.setVisibility(ProgressBar.GONE);
-//                SharedPreferences sharedPreferences =
-//                        PreferenceManager.getDefaultSharedPreferences(context);
-//                boolean sentToken = sharedPreferences
-//                        .getBoolean(RegistrationIntentService.QuickstartPreferences.SENT_TOKEN_TO_SERVER, false);
-//                if (sentToken) {
-//                    mInformationTextView.setText(getString(R.string.gcm_send_message));
-//                } else {
-//                    mInformationTextView.setText(getString(R.string.token_error_message));
-//                }
-//            }
-//        };
-//        mInformationTextView = (TextView) findViewById(R.id.informationTextView);
-//
-//        if (checkPlayServices()) {
-//            // Start IntentService to register this application with GCM.
-//            Intent intent = new Intent(this, RegistrationIntentService.class);
-//            intent.putExtra("username", usernameText.getText().toString());
-//            intent.putExtra("password",
-//            startService(intent);
-//        }
-
-    }
 
     private boolean checkPlayServices() {
         GoogleApiAvailability apiAvailability = GoogleApiAvailability.getInstance();
@@ -258,6 +233,40 @@ public class RegisterActivity extends AppCompatActivity {
             return false;
         }
         return true;
+    }
+
+    private class DataUpdateReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+//            hideDialog();
+            String msg = intent.getAction();
+            if (msg.equals("finished")) {
+
+                if(session.isLoggedIn()){
+                            if(userType.equals("employee")){
+                                Intent i = new Intent(
+                                        RegisterActivity.this, EmployeeHomeActivity.class);
+                                //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(i);
+
+                            }
+                            else {
+
+                                Intent i = new Intent(
+                                        RegisterActivity.this,
+                                        EmployerHomeActivity.class);
+                                //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(i);
+
+                            }
+
+                        }
+            }else{
+
+                Toast.makeText(getApplicationContext(),
+                       msg, Toast.LENGTH_LONG).show();
+            }
+        }
     }
 
     private void showDialog() {

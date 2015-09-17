@@ -8,6 +8,7 @@ import android.content.Context;
 import android.app.IntentService;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
@@ -60,7 +61,8 @@ public class RegistrationIntentService extends IntentService {
     protected void onHandleIntent(Intent intent) {
         // Session manager
         session = new SessionManager(getApplicationContext());
-
+//        pDialog = new ProgressDialog(getApplicationContext());
+//        pDialog.setCancelable(false);
         // SQLite database handler
         db = new SQLiteHelper(getApplicationContext());
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -128,8 +130,8 @@ public class RegistrationIntentService extends IntentService {
 
         String tag_string_req = "req_register";
 
-        pDialog.setMessage("Registering ...");
-        showDialog();
+//        pDialog.setMessage("Registering ...");
+//        showDialog();
         StringRequest strReq = new StringRequest(Request.Method.POST,
                 AppConfig.URL_REGISTER, new Response.Listener<String>() {
 
@@ -147,7 +149,7 @@ public class RegistrationIntentService extends IntentService {
 
                         //JSONObject user = jObj.getJSONObject("user");
                         String userName = jObj.getString("username");
-
+                        Log.i(TAG, "mpiak edw" );
 
 
                         // Inserting row in users table
@@ -156,34 +158,36 @@ public class RegistrationIntentService extends IntentService {
 
 
                         session.setLogin(true,usertype);
-                        hideDialog();
+//                        hideDialog();
                         // Launch login activity
-                        if(session.isLoggedIn()){
-                            if(usertype.equals("employee")){
-                                Intent intent = new Intent(
-                                        getBaseContext(), EmployeeHomeActivity.class);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                startActivity(intent);
-
-                            }
-                            else {
-
-                                Intent intent = new Intent(
-                                        getBaseContext(),
-                                        EmployerHomeActivity.class);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                startActivity(intent);
-
-                            }
-
-                        }
+                        sendBroadcast(new Intent("loggedin"));
+//                        if(session.isLoggedIn()){
+//                            if(usertype.equals("employee")){
+//                                Intent intent = new Intent(
+//                                        getBaseContext(), EmployeeHomeActivity.class);
+//                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                                startActivity(intent);
+//
+//                            }
+//                            else {
+//
+//                                Intent intent = new Intent(
+//                                        getBaseContext(),
+//                                        EmployerHomeActivity.class);
+//                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                                startActivity(intent);
+//
+//                            }
+//
+//                        }
                     } else {
 
                         // Error occurred in registration. Get the error
                         // message
                         String errorMsg = jObj.getString("error_msg");
-                        Toast.makeText(getApplicationContext(),
-                                errorMsg, Toast.LENGTH_LONG).show();
+                        sendBroadcast(new Intent(errorMsg));
+//                        Toast.makeText(getApplicationContext(),
+//                                errorMsg, Toast.LENGTH_LONG).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -250,4 +254,6 @@ public class RegistrationIntentService extends IntentService {
         if (pDialog.isShowing())
             pDialog.dismiss();
     }
+
+
 }

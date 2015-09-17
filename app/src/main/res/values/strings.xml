@@ -47,7 +47,7 @@
         running the sample again.</string>
 
     <!-- Employee Home -->
-    <string name="profile_title">Profile</string>
+    <string name="profile_title">Employee Profile</string>
     <string name="employeeName">%1$s</string>
     <string name="history">My work History</string>
     <string name="btnHistory">Show Work History</string>

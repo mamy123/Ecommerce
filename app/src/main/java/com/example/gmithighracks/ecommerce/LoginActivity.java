@@ -32,7 +32,7 @@ public class LoginActivity extends Activity {
     private static final String TAG = RegisterActivity.class.getSimpleName();
     private Button btnLogin;
     private Button btnLinkToRegister;
-    private EditText inputEmail;
+    private EditText inputUsername;
     private EditText inputPassword;
     private ProgressDialog pDialog;
     private SessionManager session;
@@ -43,7 +43,8 @@ public class LoginActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        inputEmail = (EditText) findViewById(R.id.loginEmail);
+        //inputEmail = (EditText) findViewById(R.id.loginEmail);
+        inputUsername = (EditText) findViewById(R.id.loginUsername);
         inputPassword = (EditText) findViewById(R.id.loginPassword);
         btnLogin = (Button) findViewById(R.id.btnLogin);
         btnLinkToRegister = (Button) findViewById(R.id.btnLinkToRegisterScreen);
@@ -58,9 +59,12 @@ public class LoginActivity extends Activity {
 
         // Check if user is already logged in or not
         if (session.isLoggedIn()) {
+            HashMap<String, String> user = session.getUserDetails();
 
+            // name
+            //String userType = user.get(SessionManager.KEY_NAME);
             // User is already logged in. Take him to main activity
-            if(session.isEmployee()) {
+            if(userType.equals("employee")) {
                 Intent intent = new Intent(LoginActivity.this, EmployeeHomeActivity.class);
                 startActivity(intent);
                 finish();
@@ -77,7 +81,7 @@ public class LoginActivity extends Activity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
-                String email = inputEmail.getText().toString();
+                String email = inputUsername.getText().toString();
                 String password = inputPassword.getText().toString();
 
                 // Check for empty data in the form
@@ -127,7 +131,7 @@ public class LoginActivity extends Activity {
     /**
      * function to verify login details in mysql db
      * */
-    private void checkLogin(final String email, final String password, final String userType) {
+    private void checkLogin(final String username, final String password, final String userType) {
         // Tag used to cancel the request
         String tag_string_req = "req_login";
 
@@ -150,8 +154,9 @@ public class LoginActivity extends Activity {
                     if (error != 1) {
                         // user successfully logged in
                         // Create login session
-
-                        session.setLogin(true,userType);
+                        String firstName = jObj.getString("firstname");
+                        String surname = jObj.getString("surname");
+                        session.setLogin(true,userType,username,firstName, surname);
 
                         // Launch main activity
                         Intent intent = new Intent(LoginActivity.this,
@@ -186,7 +191,7 @@ public class LoginActivity extends Activity {
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("tag", "login");
-                params.put("email", email);
+                params.put("username", username);
                 params.put("password", password);
                 params.put("usertype", userType);
 

@@ -1,10 +1,12 @@
 package com.example.gmithighracks.ecommerce;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.example.gmithighracks.ecommerce.helper.SQLiteHelper;
 import com.example.gmithighracks.ecommerce.helper.SessionManager;
@@ -22,12 +24,15 @@ public class EmployeeHomeActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_employee_home);
         Resources res = getResources();
-        db = new SQLiteHelper(getApplicationContext());
+       // db = new SQLiteHelper(getApplicationContext());
 
         // session manager
         session = new SessionManager(getApplicationContext());
         HashMap<String, String> user = db.getUserDetails();
-        String text = String.format(res.getString(R.string.employeeName), user.get("firstName"));
+      //  String text = String.format(res.getString(R.string.employeeName), user.get("firstName"));
+        TextView lastMsg = (TextView)findViewById(R.id.textView2);
+        lastMsg.setText(this.getResources()
+                .getString(R.string.employeeName, user.get("firstName")));
     }
 
     @Override
@@ -51,4 +56,13 @@ public class EmployeeHomeActivity extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+    public void logout(){
+        db.deleteUsers();
+        session.deleteSession();
+        Intent intent = new Intent(EmployeeHomeActivity.this, LoginActivity.class);
+        startActivity(intent);
+        finish();
+
+    }
+
 }

@@ -71,4 +71,17 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginTop="51dp" />
+
+    <Button
+        android:id="@+id/btnLogout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:onClick="logout"
+        android:text="logout"
+        android:textColor="#228b22"
+        android:textStyle="bold"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/dropDownListSkills"
+        android:layout_alignEnd="@+id/dropDownListSkills" />
 </RelativeLayout>

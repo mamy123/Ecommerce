@@ -17,12 +17,19 @@
             android:textSize="25sp"
             android:textStyle="bold" />
 
+        <!--<EditText-->
+            <!--android:id="@+id/loginEmail"-->
+            <!--android:layout_width="fill_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:hint="Enter your Email ID"-->
+            <!--android:inputType="textEmailAddress" />-->
+
         <EditText
-            android:id="@+id/loginEmail"
+            android:id="@+id/loginUsername"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter your Email ID"
-            android:inputType="textEmailAddress" />
+            android:hint="Enter your Username"
+            android:inputType="text" />
 
         <TextView
             android:layout_width="fill_parent"

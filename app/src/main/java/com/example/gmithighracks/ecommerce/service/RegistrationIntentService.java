@@ -153,11 +153,12 @@ public class RegistrationIntentService extends IntentService {
 
 
                         // Inserting row in users table
-                        db.addUser(userName, firstName,surname, email, usertype);
+                       // db.addUser(userName, firstName,surname, email, usertype);
 
 
 
-                        session.setLogin(true,usertype);
+                        session.setLogin(true,usertype,username,firstName,surname);
+
 //                        hideDialog();
                         // Launch login activity
                         sendBroadcast(new Intent("loggedin"));

@@ -59,9 +59,12 @@ public class LoginActivity extends Activity {
 
         // Check if user is already logged in or not
         if (session.isLoggedIn()) {
+            HashMap<String, String> user = session.getUserDetails();
 
+            // name
+            //String userType = user.get(SessionManager.KEY_NAME);
             // User is already logged in. Take him to main activity
-            if(session.isEmployee()) {
+            if(userType.equals("employee")) {
                 Intent intent = new Intent(LoginActivity.this, EmployeeHomeActivity.class);
                 startActivity(intent);
                 finish();
@@ -151,9 +154,10 @@ public class LoginActivity extends Activity {
                     if (error != 1) {
                         // user successfully logged in
                         // Create login session
+                        String firstName = jObj.getString("firstname");
+                        String surname = jObj.getString("surname");
+                        session.setLogin(true,userType,username,firstName, surname);
 
-                        session.setLogin(true,userType);
-                        session.setUsername(username);
                         // Launch main activity
                         Intent intent = new Intent(LoginActivity.this,
                                 EmployeeHomeActivity.class);

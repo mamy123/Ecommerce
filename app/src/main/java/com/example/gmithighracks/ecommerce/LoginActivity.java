@@ -62,9 +62,9 @@ public class LoginActivity extends Activity {
             HashMap<String, String> user = session.getUserDetails();
 
             // name
-            //String userType = user.get(SessionManager.KEY_NAME);
+            String usertype = user.get(SessionManager.KEY_USERTYPE);
             // User is already logged in. Take him to main activity
-            if(userType.equals("employee")) {
+            if(usertype.equals("employee")) {
                 Intent intent = new Intent(LoginActivity.this, EmployeeHomeActivity.class);
                 startActivity(intent);
                 finish();

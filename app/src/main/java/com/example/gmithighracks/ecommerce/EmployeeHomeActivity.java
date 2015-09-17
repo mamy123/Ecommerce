@@ -6,6 +6,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import com.example.gmithighracks.ecommerce.helper.SQLiteHelper;
@@ -28,11 +29,10 @@ public class EmployeeHomeActivity extends ActionBarActivity {
 
         // session manager
         session = new SessionManager(getApplicationContext());
-        HashMap<String, String> user = db.getUserDetails();
+        HashMap<String, String> user = session.getUserDetails();
       //  String text = String.format(res.getString(R.string.employeeName), user.get("firstName"));
         TextView lastMsg = (TextView)findViewById(R.id.textView2);
-        lastMsg.setText(this.getResources()
-                .getString(R.string.employeeName, user.get("firstName")));
+        lastMsg.setText(user.get(SessionManager.KEY_FNAME) + " "+ user.get(SessionManager.KEY_SURNAME));
     }
 
     @Override
@@ -56,8 +56,7 @@ public class EmployeeHomeActivity extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
-    public void logout(){
-        db.deleteUsers();
+    public void logout(View view){
         session.deleteSession();
         Intent intent = new Intent(EmployeeHomeActivity.this, LoginActivity.class);
         startActivity(intent);

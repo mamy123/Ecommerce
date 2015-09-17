@@ -25,7 +25,7 @@ public class SessionManager {
     private static final String PREF_NAME = "freeLancerLogin";
 
     private static final String KEY_IS_LOGGEDIN = "isLoggedIn";
-    private static final String KEY_USERTYPE = "usertype";
+    public static final String KEY_USERTYPE = "usertype";
     private static final String KEY_EMPLOYER = "employer";
 
     public static final String KEY_USERNAME = "username";

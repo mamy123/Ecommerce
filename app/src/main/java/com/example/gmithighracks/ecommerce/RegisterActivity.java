@@ -11,10 +11,12 @@ import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.location.Location;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -147,10 +149,18 @@ public class RegisterActivity extends AppCompatActivity {
                     error.setTextColor(0xffff0000);
                 }
             }
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-            public void onTextChanged(CharSequence s, int start, int before, int count) {}
-            });
 
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+        });
+        dataUpdateReceiver =new DataUpdateReceiver();
+        LocalBroadcastManager bManager = LocalBroadcastManager.getInstance(this);
+        IntentFilter intentFilter = new IntentFilter("Send_login");
+        //intentFilter.addAction(RECEIVE_JSON);
+        registerReceiver(dataUpdateReceiver, intentFilter);
 
     }
 
@@ -180,8 +190,8 @@ public class RegisterActivity extends AppCompatActivity {
 //        final Double longitude = location.getLongitude();
   //      final Double latitude = location.getLatitude();
         // Tag used to cancel the request
-//        pDialog.setMessage("Registering ...");
-//        showDialog();
+        pDialog.setMessage("Registering ...");
+        showDialog();
 
 
         mRegistrationBroadcastReceiver = new BroadcastReceiver() {
@@ -200,6 +210,7 @@ public class RegisterActivity extends AppCompatActivity {
             }
         };
         mInformationTextView = (TextView) findViewById(R.id.informationTextView);
+
 
         if (checkPlayServices()) {
             // Start IntentService to register this application with GCM.
@@ -238,10 +249,9 @@ public class RegisterActivity extends AppCompatActivity {
     private class DataUpdateReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-//            hideDialog();
-            String msg = intent.getAction();
-            if (msg.equals("finished")) {
-
+            hideDialog();
+            Log.i(TAG, "pira to broadcast.");
+            String msg = intent.getStringExtra("msg");
                 if(session.isLoggedIn()){
                             if(userType.equals("employee")){
                                 Intent i = new Intent(
@@ -260,11 +270,11 @@ public class RegisterActivity extends AppCompatActivity {
                                 finish();
                             }
 
-                        }
-            }else{
+                }
+                else{
 
-                Toast.makeText(context,
-                       msg, Toast.LENGTH_LONG).show();
+                    Toast.makeText(context,
+                           msg, Toast.LENGTH_LONG).show();
             }
         }
     }

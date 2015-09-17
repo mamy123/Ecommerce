@@ -48,7 +48,7 @@
 
     <!-- Employee Home -->
     <string name="profile_title">Employee Profile</string>
-    <string name="employeeName">%1$s</string>
+    <string name="employeeName"></string>
     <string name="history">My work History</string>
     <string name="btnHistory">Show Work History</string>
     <string name="skillsTitle">My skills:</string>

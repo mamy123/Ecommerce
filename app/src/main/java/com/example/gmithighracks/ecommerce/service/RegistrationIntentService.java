@@ -7,6 +7,7 @@ import android.content.Context;
 
 import android.app.IntentService;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
@@ -158,10 +159,11 @@ public class RegistrationIntentService extends IntentService {
 
 
                         session.setLogin(true,usertype,username,firstName,surname);
-
+                        sendBroadcast(new Intent("Send_login").putExtra("msg", "OK"));
 //                        hideDialog();
                         // Launch login activity
-                        sendBroadcast(new Intent("loggedin"));
+
+
 //                        if(session.isLoggedIn()){
 //                            if(usertype.equals("employee")){
 //                                Intent intent = new Intent(
@@ -186,10 +188,13 @@ public class RegistrationIntentService extends IntentService {
                         // Error occurred in registration. Get the error
                         // message
                         String errorMsg = jObj.getString("error_msg");
-                        sendBroadcast(new Intent(errorMsg));
+                        sendBroadcast(new Intent("Send_login").putExtra("msg", errorMsg));
 //                        Toast.makeText(getApplicationContext(),
 //                                errorMsg, Toast.LENGTH_LONG).show();
                     }
+                    Intent new_intent = new Intent();
+                    new_intent.setAction("Send_login");
+                    sendBroadcast(new_intent);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

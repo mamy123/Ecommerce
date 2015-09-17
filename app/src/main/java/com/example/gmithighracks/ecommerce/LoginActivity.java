@@ -70,7 +70,7 @@ public class LoginActivity extends Activity {
                 finish();
             }
             else{
-                Intent intent = new Intent(LoginActivity.this, EmployeeHomeActivity.class);
+                Intent intent = new Intent(LoginActivity.this, EmployerHomeActivity.class);
                 startActivity(intent);
                 finish();
             }

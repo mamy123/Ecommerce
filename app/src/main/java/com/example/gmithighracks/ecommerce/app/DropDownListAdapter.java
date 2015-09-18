@@ -1,6 +1,7 @@
 package com.example.gmithighracks.ecommerce.app;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +17,7 @@ import java.util.ArrayList;
 
 public class DropDownListAdapter extends BaseAdapter {
 
-    private ArrayList<String> mListItems;
+    private ArrayList<Ability> mListItems;
     private LayoutInflater mInflater;
     private TextView mSelectedItems;
     private static int selectedCount = 0;
@@ -32,9 +33,9 @@ public class DropDownListAdapter extends BaseAdapter {
         DropDownListAdapter.selected = selected;
     }
 
-    public DropDownListAdapter(Context context, ArrayList<String> items,
+    public DropDownListAdapter(Context context, ArrayList<Ability> items,
                                TextView tv) {
-        mListItems = new ArrayList<String>();
+        mListItems = new ArrayList<Ability>();
         mListItems.addAll(items);
         mInflater = LayoutInflater.from(context);
         mSelectedItems = tv;
@@ -72,7 +73,7 @@ public class DropDownListAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        holder.tv.setText(mListItems.get(position));
+        holder.tv.setText(mListItems.get(position).getName());
 
         final int position1 = position;
 
@@ -85,7 +86,7 @@ public class DropDownListAdapter extends BaseAdapter {
                 setText(position1);
             }
         });
-
+        Log.d("WAHT", "checksele:" + position);
         if(EmployeeHomeActivity.checkSelected[position])
             holder.chkbox.setChecked(true);
         else
@@ -111,7 +112,7 @@ public class DropDownListAdapter extends BaseAdapter {
         } else if (selectedCount == 1) {
             for (int i = 0; i < EmployeeHomeActivity.checkSelected.length; i++) {
                 if (EmployeeHomeActivity.checkSelected[i] == true) {
-                    firstSelected = mListItems.get(i);
+                    firstSelected = mListItems.get(i).getName();
                     break;
                 }
             }
@@ -120,7 +121,7 @@ public class DropDownListAdapter extends BaseAdapter {
         } else if (selectedCount > 1) {
             for (int i = 0; i < EmployeeHomeActivity.checkSelected.length; i++) {
                 if (EmployeeHomeActivity.checkSelected[i] == true) {
-                    firstSelected = mListItems.get(i);
+                    firstSelected = mListItems.get(i).getName();
                     break;
                 }
             }

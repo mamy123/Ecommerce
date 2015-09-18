@@ -65,6 +65,7 @@
     <string name="btnSearchComp">Search Competition</string>
     <!-- Pop up menu-->
     <string name="select_string">Select an ability</string>
+    <string name="btnAddSkillsFinal">Add</string>
 
 
 </resources>

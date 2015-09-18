@@ -62,7 +62,9 @@
     <string name="competitions">My Competitions</string>
     <string name="btnCompetitions">Show Competitions</string>
     <string name="btnNewCompetition">Create new Competition</string>
-
+    <string name="btnSearchComp">Search Competition</string>
+    <!-- Pop up menu-->
+    <string name="select_string">Select an ability</string>
 
 
 </resources>

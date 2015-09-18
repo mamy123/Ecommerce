@@ -15,4 +15,7 @@ public class AppConfig {
 
     // Server employer profile url
     public static String URL_PROFILE_EMPLOYER = "http://195.134.67.152/ECommerce2/ECommerce2/index.php/login/getemployerprofile";
+
+    // Server abilities controller url
+    public static String URL_ABILITIES = "http://195.134.67.152/ECommerce2/ECommerce2/index.php/abilitiesController";
 }

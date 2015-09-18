@@ -7,6 +7,8 @@ public class AppConfig {
     // Server user login url
     public static String URL_LOGIN = "http://195.134.67.152/ECommerce2/ECommerce2/index.php/login";
 
+    public static String URL_ADD_TASK = "http://195.134.67.152/ECommerce2/ECommerce2/index.php/tasks/inserttask";
+
     // Server user register url
     public static String URL_REGISTER = "http://195.134.67.152/ECommerce2/ECommerce2/index.php/register";
 

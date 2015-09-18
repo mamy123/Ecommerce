@@ -116,6 +116,16 @@
             android:name=".ProfileActivity"
             android:label="@string/title_activity_profile" >
         </activity>
+        <activity
+            android:name=".AddTaskActivity"
+            android:label="@string/title_activity_add_task" >
+        </activity>
+
+        <service
+            android:name=".service.AddTaskService"
+            android:enabled="true"
+            android:exported="true" >
+        </service>
     </application>
 
 </manifest>

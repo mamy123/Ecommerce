@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="5dip"
+        android:weightSum="1">
+
+        <!-- View Title Label -->
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dip"
+            android:text="@string/newTask"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+        <!-- Name Label -->
+
+
+        <!-- Email Label -->
+
+        <!-- Name Label -->
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/Title" />
+        <!-- Name TextField -->
+
+        <EditText
+            android:id="@+id/title"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" android:hint="Enter the title of the Task"/>
+
+        <!-- Email Label -->
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/decription" />
+        <!-- Email TextField -->
+
+        <EditText
+            android:id="@+id/shortDecription"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter Short Description"
+            />
+
+
+
+
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/decription" />
+        <!-- Email TextField -->
+
+        <EditText
+            android:id="@+id/decription"
+            android:layout_width="361dp"
+            android:layout_height="137dp"
+            android:hint="Enter Full Description" />
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dip"
+            android:text="@string/Date" />
+        <!-- Area TextField -->
+
+        <EditText
+            android:id="@+id/start"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter start date" />
+
+
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dip"
+            android:text="@string/Date" />
+        <!-- Area TextField -->
+
+        <EditText
+            android:id="@+id/end"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter complition date" />
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dip"
+            android:text="@string/salary" />
+        <!-- City TextField -->
+
+        <EditText
+            android:id="@+id/Salary"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter Salary" />
+
+        <!-- User Type field -->
+
+        <Button
+            android:id="@+id/btnAddTask"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dip"
+            android:background="#ff6347"
+            android:onClick="registerUser"
+            android:text="@string/btnAddTask"
+            android:textColor="#fff" />
+
+
+
+    </LinearLayout>
+
+</ScrollView>

@@ -1,11 +1,15 @@
 package com.example.gmithighracks.ecommerce;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.gmithighracks.ecommerce.helper.SessionManager;
 
@@ -14,13 +18,15 @@ import java.util.HashMap;
 
 public class EmployerHomeActivity extends ActionBarActivity {
 
+    private Button btnNewCompetition;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_employer_home);
         Resources res = getResources();
         // db = new SQLiteHelper(getApplicationContext());
-
+        btnNewCompetition = (Button) findViewById(R.id.btnNewCompetition);
         // session manager
         SessionManager session = new SessionManager(getApplicationContext());
         HashMap<String, String> user = session.getUserDetails();
@@ -28,6 +34,23 @@ public class EmployerHomeActivity extends ActionBarActivity {
       //  TextView lastMsg = (TextView)findViewById(R.id.textView2);
         TextView lastMsg = (TextView)findViewById(R.id.textView2);
         lastMsg.setText(user.get(SessionManager.KEY_FNAME) +"  " + user.get(SessionManager.KEY_SURNAME));
+
+
+        btnNewCompetition.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View view) {
+
+                Intent intent;
+                intent = new Intent(EmployerHomeActivity.this,
+                        AddTaskActivity.class);
+                startActivity(intent);
+                finish();
+
+            }
+
+        });
+
+
     }
 
     @Override

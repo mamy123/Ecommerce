@@ -18,10 +18,15 @@
     <string name="acceptPwd">Acceptable Password</string>
     <string name="area">Area</string>
     <string name="city">City</string>
+    <string name="salary">Salary</string>
+    <string name="Date">Date</string>
+    <string name="start">Start Date</string>
+    <string name="end">Completion Date</string>
     <string name="userType">User Type</string>
     <string name="employeeBtn">Employee</string>
     <string name="employerBtn">Employer</string>
     <string name="btnRegister">Register</string>
+    <string name="btnAddTask">Add Task</string>
     <string name="title_activity_register">RegisterActivity</string>
     <string name="title_activity_employer_home">EmployerHomeActivity</string>
 
@@ -62,7 +67,10 @@
     <string name="competitions">My Competitions</string>
     <string name="btnCompetitions">Show Competitions</string>
     <string name="btnNewCompetition">Create new Competition</string>
-
+    <string name="title_activity_add_task">AddTaskActivity</string>
+    <string name="decription">Description</string>
+    <string name="Title">Title</string>
+    <string name="newTask">Create new Task</string>
 
 
 </resources>

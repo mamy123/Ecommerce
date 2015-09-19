@@ -42,11 +42,11 @@
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="@string/decription" />
+            android:text="@string/shortDecription" />
         <!-- Email TextField -->
 
         <EditText
-            android:id="@+id/shortDecription"
+            android:id="@+id/shortdescription"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:hint="Enter Short Description"
@@ -59,11 +59,11 @@
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="@string/decription" />
+            android:text="@string/fullDecription" />
         <!-- Email TextField -->
 
         <EditText
-            android:id="@+id/decription"
+            android:id="@+id/fulldescription"
             android:layout_width="361dp"
             android:layout_height="137dp"
             android:hint="Enter Full Description" />
@@ -72,11 +72,11 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dip"
-            android:text="@string/Date" />
+            android:text="@string/startDate" />
         <!-- Area TextField -->
 
         <EditText
-            android:id="@+id/start"
+            android:id="@+id/startdate"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:hint="Enter start date" />

@@ -22,9 +22,12 @@ import android.widget.Toast;
 
 import com.example.gmithighracks.ecommerce.helper.SQLiteHelper;
 import com.example.gmithighracks.ecommerce.helper.SessionManager;
+import com.example.gmithighracks.ecommerce.service.AddTaskService;
 import com.example.gmithighracks.ecommerce.service.RegistrationIntentService;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
+
+import java.util.HashMap;
 
 public class AddTaskActivity extends AppCompatActivity {
 
@@ -62,8 +65,8 @@ public class AddTaskActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_task);
         title = (EditText) findViewById(R.id.title);
         shortDescription = (EditText) findViewById(R.id.shortdescription);
-        fullDescription =(EditText) findViewById(R.id.description);
-        startDate = (EditText) findViewById(R.id.start);
+        fullDescription =(EditText) findViewById(R.id.fulldescription);
+        startDate = (EditText) findViewById(R.id.startdate);
         endDate = (EditText) findViewById(R.id.end);
         salary = (EditText) findViewById(R.id.Salary);
 
@@ -147,14 +150,17 @@ public class AddTaskActivity extends AppCompatActivity {
 
         if (checkPlayServices()) {
             // Start IntentService to register this application with GCM.
-            Intent intent = new Intent(this, RegistrationIntentService.class);
+            Intent intent = new Intent(this, AddTaskService.class);
             intent.putExtra("title", title);
             intent.putExtra("shortDescription", shortDescription);
             intent.putExtra("fullDescription",fullDescription);
             intent.putExtra("startDate",startDate);
             intent.putExtra("endDate",endDate);
             intent.putExtra("salary",salary);
-
+            session = new SessionManager(getApplicationContext());
+            HashMap<String, String> user = session.getUserDetails();
+            intent.putExtra("username",user.get("username"));
+            System.out.println(title+"  , "+shortDescription+"  , "+fullDescription+"  , "+startDate+"  , "+endDate+"  , "+salary+"  , "+user.get("username"));
             startService(intent);
         }
         //  hideDialog();

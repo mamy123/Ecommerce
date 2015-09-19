@@ -18,7 +18,7 @@ import java.util.HashMap;
 
 public class EmployerHomeActivity extends ActionBarActivity {
 
-    private Button btnNewCompetition;
+    private Button btnNewCompetition, btnCompetitions;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +27,7 @@ public class EmployerHomeActivity extends ActionBarActivity {
         Resources res = getResources();
         // db = new SQLiteHelper(getApplicationContext());
         btnNewCompetition = (Button) findViewById(R.id.btnNewCompetition);
+        btnCompetitions = (Button) findViewById(R.id.btnCompetitions);
         // session manager
         SessionManager session = new SessionManager(getApplicationContext());
         HashMap<String, String> user = session.getUserDetails();
@@ -43,6 +44,20 @@ public class EmployerHomeActivity extends ActionBarActivity {
                 Intent intent;
                 intent = new Intent(EmployerHomeActivity.this,
                         AddTaskActivity.class);
+                startActivity(intent);
+                finish();
+
+            }
+
+        });
+
+        btnCompetitions.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View view) {
+
+                Intent intent;
+                intent = new Intent(EmployerHomeActivity.this,
+                        GetUserTasksActivity.class);
                 startActivity(intent);
                 finish();
 

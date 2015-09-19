@@ -7,7 +7,7 @@ public class AppConfig {
     // Server user login url
     public static String URL_LOGIN = "http://195.134.67.152/ECommerce2/ECommerce2/index.php/login";
 
-    public static String URL_ADD_TASK = "http://195.134.67.152/ECommerce2/ECommerce2/index.php/tasks/inserttask";
+    public static String URL_ADD_TASK = "http://195.134.67.152/ECommerce2/ECommerce2/index.php/tasks/insertTask";
 
     // Server user register url
     public static String URL_REGISTER = "http://195.134.67.152/ECommerce2/ECommerce2/index.php/register";
@@ -20,4 +20,9 @@ public class AppConfig {
 
     // Server abilities controller url
     public static String URL_ABILITIES = "http://195.134.67.152/ECommerce2/ECommerce2/index.php/abilitiesController";
+
+
+    public static String URL_GET_TASKS = "http://195.134.67.152/ECommerce2/ECommerce2/index.php/tasks/gettasks";
+
+
 }

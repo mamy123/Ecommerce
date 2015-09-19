@@ -126,6 +126,15 @@
             android:enabled="true"
             android:exported="true" >
         </service>
+
+        <activity
+            android:name=".EmployerTaskActivity"
+            android:label="@string/title_activity_employer_task" >
+        </activity>
+        <activity
+            android:name=".GetUserTasksActivity"
+            android:label="@string/title_activity_get_user_tasks" >
+        </activity>
     </application>
 
 </manifest>

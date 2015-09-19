@@ -8,7 +8,16 @@
 
 	<ListView android:id="@+id/DropDownListFinal"
 	    android:layout_width="fill_parent"
-	    android:layout_height="wrap_content"
+	    android:layout_height="455dp"
 	    android:divider="#000"
 	    android:dividerHeight="0.5dp"></ListView>
+
+    <Button
+        android:id="@+id/btnAddSkillsFinal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#83b1ff"
+        android:text="@string/btnAddSkillsFinal"
+        android:onClick="sendSelectedAbilities"
+        android:textColor="#fff" />
 </LinearLayout>

@@ -22,6 +22,7 @@ import java.util.Map;
 public class RequestSender {
 
     public JSONObject jObj;
+    private String tag_string_req = "req_abilities";
 
     public JSONObject sendMessage(final Map<String, String> map, String url) {
         StringRequest strReq = new StringRequest(Request.Method.POST,
@@ -61,6 +62,7 @@ public class RequestSender {
                 return params;
             }
         };
+        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
         return jObj;
     }
 

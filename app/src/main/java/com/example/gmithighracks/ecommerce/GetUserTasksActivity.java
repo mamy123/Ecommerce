@@ -7,6 +7,14 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -34,6 +42,8 @@ public class GetUserTasksActivity extends AppCompatActivity {
   //  private ProgressDialog pDialog;
 
     private static final String TAG = GetUserTasksActivity.class.getSimpleName();
+    private ListView lv1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         final String username;
@@ -43,9 +53,11 @@ public class GetUserTasksActivity extends AppCompatActivity {
         // Session manager
         session = new SessionManager(getApplicationContext());
 
+        lv1 = (ListView)findViewById(R.id.listView);
 
-           tasks = new ArrayList<String>();
-           tasksIds = new ArrayList<Integer>();
+
+        tasks = new ArrayList<String>();
+        tasksIds = new ArrayList<Integer>();
         // Check if user is already logged in or not
         if (session.isLoggedIn()) {
             HashMap<String, String> user = session.getUserDetails();
@@ -53,13 +65,12 @@ public class GetUserTasksActivity extends AppCompatActivity {
             // name
             String usertype = user.get(SessionManager.KEY_USERTYPE);
             // User is already logged in. Take him to main activity
-            if(usertype.equals("employer"))
-            {
+            if (usertype.equals("employer")) {
                 username = user.get("username");
                 String tag_string_req = "req_getTasks";
 
-              //  pDialog.setMessage("Finding Tasks ...");
-               // showDialog();
+                //  pDialog.setMessage("Finding Tasks ...");
+                // showDialog();
 
                 StringRequest strReq = new StringRequest(Request.Method.POST,
                         AppConfig.URL_GET_TASKS, new Response.Listener<String>() {
@@ -77,20 +88,24 @@ public class GetUserTasksActivity extends AppCompatActivity {
                             if (error != 1) {
                                 // user successfully logged in
                                 // Create login session
-                               // String tasks = jObj.getString("tasks");
+                                // String tasks = jObj.getString("tasks");
 
                                 //jObj = new JSONObject(response);
                                 JSONArray jAbilities = jObj.getJSONArray("tasks");
-                                for(int i=0;i<jAbilities.length();i++)
-                                {
-                                    String ab =(jAbilities.getJSONObject(i).getString("name"));
+                                for (int i = 0; i < jAbilities.length(); i++) {
+
+                                    String ab = (jAbilities.getJSONObject(i).getString("name"));
                                     Integer ii = (jAbilities.getJSONObject(i).getInt("id"));
                                     tasks.add(ab);
+
                                     tasksIds.add(ii);
                                 }
 
+                                lv1.setAdapter(new ArrayAdapter<String>(GetUserTasksActivity.
+                                        this,android.R.layout.simple_list_item_1, tasks));
+                                lv1.setOnItemClickListener(new ListClickHandler());
 
-                             //   String surname = jObj.getString("surname");
+                                //   String surname = jObj.getString("surname");
 
 
                                 // Launch main activity
@@ -126,7 +141,6 @@ public class GetUserTasksActivity extends AppCompatActivity {
                         params.put("username", username);
 
 
-
                         return params;
                     }
 
@@ -136,9 +150,9 @@ public class GetUserTasksActivity extends AppCompatActivity {
                 AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
 
             }
+
+
         }
-
-
     }
 
     @Override
@@ -163,6 +177,26 @@ public class GetUserTasksActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    public class ListClickHandler implements android.widget.AdapterView.OnItemClickListener {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+
+            System.out.println("mikaaaaaaaaa");
+            String text = ((TextView) view).getText().toString();
+            //String text = listText.getText().toString();
+
+            System.out.println(text);
+            // create intent to start another activity
+            Intent intent = new Intent(GetUserTasksActivity.this, EmployerTaskActivity.class);
+            // add the selected text item to our intent.
+            intent.putExtra("selectedTask", text);
+            startActivity(intent);
+            finish();
+        }
+
+
+    }
 
 
 }

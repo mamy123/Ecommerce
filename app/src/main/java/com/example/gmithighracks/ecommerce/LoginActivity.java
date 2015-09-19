@@ -159,10 +159,17 @@ public class LoginActivity extends Activity {
                         session.setLogin(true,userType,username,firstName, surname);
 
                         // Launch main activity
-                        Intent intent = new Intent(LoginActivity.this,
-                                EmployeeHomeActivity.class);
-                        startActivity(intent);
-                        finish();
+                        if(userType.equals("employee")) {
+                            Intent intent = new Intent(LoginActivity.this,
+                                    EmployeeHomeActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+                        else{
+                            Intent intent = new Intent(LoginActivity.this, EmployerHomeActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
                     } else {
                         // Error in login. Get the error message
                         String errorMsg = jObj.getString("error_msg");

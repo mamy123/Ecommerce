@@ -77,6 +77,15 @@
             android:onClick="registerUser"
             android:text="@string/btnAddTask"
             android:textColor="#fff" />
+        <TextView
+            android:id="@+id/skillsTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:text="@string/select_string" />
+
 
         <TextView
             android:layout_width="fill_parent"

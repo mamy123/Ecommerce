@@ -76,6 +76,10 @@
     <string name="startDate">Start Date</string>
     <string name="title_activity_employer_task">Employer Task</string>
     <string name="title_activity_get_user_tasks">Get User Tasks</string>
+    <string name="btnSearchComp">Search Competition</string>
+    <string name="search_task_title">SearchTask</string>
+    <string name="btnAddSkillsFinal">Add</string>
+    <string name="select_string" />
 
 
 </resources>

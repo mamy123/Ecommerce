@@ -140,6 +140,7 @@ public class AddTaskActivity extends AppCompatActivity {
         //intentFilter.addAction(RECEIVE_JSON);
         registerReceiver(dataUpdateReceiver, intentFilter);
 
+        tv = (TextView) findViewById(R.id.skillsTv);
 
 //
         getAllAbilities();

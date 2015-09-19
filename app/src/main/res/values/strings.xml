@@ -66,8 +66,18 @@
     <!-- Pop up menu-->
     <string name="select_string">Select an ability</string>
     <string name="btnAddSkillsFinal">Add</string>
-    <string name="skillList">Select to see your Skills</string>
-    <string name="title_activity_search_task">SearchTaskActivity</string>
+
+    <!--Tasks -->
+    <string name="decription">Description</string>
+    <string name="Title">Title</string>
+    <string name="newTask">Create new Task</string>
+    <string name="shortDecription">Short Description</string>
+    <string name="fullDecription">Full Description</string>
+    <string name="startDate">Start Date</string>
+    <string name="search_task_title">Available Tasks</string>
+    <string name="Date" />
+    <string name="salary" />
+    <string name="btnAddTask" />
 
 
 </resources>

@@ -29,6 +29,7 @@ public class GetUserTasksActivity extends AppCompatActivity {
 
     private SessionManager session;
     public ArrayList<String> tasks;
+    public ArrayList<Integer> tasksIds;
 
   //  private ProgressDialog pDialog;
 
@@ -44,6 +45,7 @@ public class GetUserTasksActivity extends AppCompatActivity {
 
 
            tasks = new ArrayList<String>();
+           tasksIds = new ArrayList<Integer>();
         // Check if user is already logged in or not
         if (session.isLoggedIn()) {
             HashMap<String, String> user = session.getUserDetails();
@@ -53,7 +55,7 @@ public class GetUserTasksActivity extends AppCompatActivity {
             // User is already logged in. Take him to main activity
             if(usertype.equals("employer"))
             {
-                 username = user.get("username");
+                username = user.get("username");
                 String tag_string_req = "req_getTasks";
 
               //  pDialog.setMessage("Finding Tasks ...");
@@ -82,7 +84,9 @@ public class GetUserTasksActivity extends AppCompatActivity {
                                 for(int i=0;i<jAbilities.length();i++)
                                 {
                                     String ab =(jAbilities.getJSONObject(i).getString("name"));
+                                    Integer ii = (jAbilities.getJSONObject(i).getInt("id"));
                                     tasks.add(ab);
+                                    tasksIds.add(ii);
                                 }
 
 

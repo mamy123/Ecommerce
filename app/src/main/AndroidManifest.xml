@@ -116,6 +116,14 @@
             android:name=".ProfileActivity"
             android:label="@string/title_activity_profile" >
         </activity>
+        <activity
+            android:name=".SearchTaskActivity"
+            android:label="@string/title_activity_search_task"
+            android:parentActivityName=".EmployeeHomeActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.gmithighracks.ecommerce.EmployeeHomeActivity" />
+        </activity>
     </application>
 
 </manifest>

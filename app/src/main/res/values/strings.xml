@@ -66,6 +66,8 @@
     <!-- Pop up menu-->
     <string name="select_string">Select an ability</string>
     <string name="btnAddSkillsFinal">Add</string>
+    <string name="skillList">Select to see your Skills</string>
+    <string name="title_activity_search_task">SearchTaskActivity</string>
 
 
 </resources>

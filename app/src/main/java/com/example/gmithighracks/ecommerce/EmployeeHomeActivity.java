@@ -1,5 +1,6 @@
 package com.example.gmithighracks.ecommerce;
 
+import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -14,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
@@ -47,7 +49,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class EmployeeHomeActivity extends ActionBarActivity {
+public class EmployeeHomeActivity extends ListActivity {
 
     private SQLiteHelper db;
     private SessionManager session;
@@ -56,9 +58,11 @@ public class EmployeeHomeActivity extends ActionBarActivity {
     private PopupWindow pw;
     public static  boolean[] checkSelected;
     private boolean expanded;
-    private ArrayList<Ability> abilities;
+    private ArrayList<Ability> abilities,userAbilities;
     private TextView tv;
     private ProgressDialog pDialog;
+    ArrayAdapter<String> adapter;
+    ArrayList<String> listItems=new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,11 +80,10 @@ public class EmployeeHomeActivity extends ActionBarActivity {
         TextView lastMsg = (TextView)findViewById(R.id.textView2);
         lastMsg.setText(user.get(SessionManager.KEY_FNAME) + " "+ user.get(SessionManager.KEY_SURNAME));
         searchComp = (Button) findViewById(R.id.btnSearchComp);
-        showAbilities = (Button) findViewById(R.id.btndropDownListSkills);
+       // showAbilities = (Button) findViewById(R.id.btndropDownListSkills);
         addAbilities = (Button) findViewById(R.id.btnAddSkillsFinal);
-
-        getAbilities();
-//        Log.d("WAHT2", "checkseledasdsadadsa:" + abilities.size() + " and " + abilities.get(0).getName());
+        getUserAbilities();
+        getAllAbilities();
         Button createButton = (Button)findViewById(R.id.btnAddSkills);
         createButton.setOnClickListener(new View.OnClickListener() {
 
@@ -89,12 +92,20 @@ public class EmployeeHomeActivity extends ActionBarActivity {
                 initiatePopUp(abilities, tv);
             }
         });
-//        addAbilities.setOnClickListener(new View.OnClickListener() {
-//
-//            public void onClick(View v) {
-//                sendSelectedAbilities();
-//            }
-//        });
+
+        adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1,
+                listItems);
+
+        setListAdapter(adapter);
+
+        searchComp.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                Intent intent = new Intent(EmployeeHomeActivity.this, SearchTaskActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
     public void sendSelectedAbilities(View view) {
@@ -156,7 +167,12 @@ public class EmployeeHomeActivity extends ActionBarActivity {
                     if (checkSelected[i] == true) {
                         j++;
                         params.put("ability" + j, String.valueOf(abilities.get(i).getId()));
+                        if(!userAbilities.contains(abilities.get(i))){
+                            listItems.add(userAbilities.get(i).getName());
+                        }
+
                     }
+                    adapter.notifyDataSetChanged();
                 }
                 params.put("num", String.valueOf(j));
                 return params;
@@ -198,7 +214,7 @@ public class EmployeeHomeActivity extends ActionBarActivity {
 
     }
 
-    private void getAbilities() {
+    private void getAllAbilities() {
         //data source for drop-down list
         abilities = new ArrayList<Ability>();
 
@@ -219,49 +235,18 @@ public class EmployeeHomeActivity extends ActionBarActivity {
                     {
                         Ability ab =new Ability(jAbilities.getJSONObject(i).getInt("id"),jAbilities.getJSONObject(i).getString("name"),jAbilities.getJSONObject(i).getString("description"));
                         abilities.add(ab);
-                        Log.d("WAHT3", "checkseledasdsadadsa:" + abilities.size() + " and " + abilities.get(i).getName());
                     }
-                    Log.d("WAHT4", "checkseledasdsadadsa:" + abilities.size());
                 } catch (JSONException e) {
                     // JSON error
                     e.printStackTrace();
                 }
 
                 checkSelected = new boolean[abilities.size()];
-                Log.d("WAHT2", "checkseledasdsadadsa:" + abilities.size()+" and " +checkSelected.length);
                 //initialize all values of list to 'unselected' initially
                 for (int i = 0; i < checkSelected.length; i++) {
                     checkSelected[i] = false;
                 }
 
-
-                tv = (TextView) findViewById(R.id.DropDownListSelectBox);
-                tv.setOnClickListener(new View.OnClickListener() {
-
-                    @Override
-                    public void onClick(View v) {
-                        // TODO Auto-generated method stub
-                        if (!expanded) {
-                            //display all selected values
-                            String selected = "";
-                            int flag = 0;
-                            for (int i = 0; i < abilities.size(); i++) {
-                                if (checkSelected[i] == true) {
-                                    selected += abilities.get(i).getName();
-                                    selected += ", ";
-                                    flag = 1;
-                                }
-                            }
-                            if (flag == 1)
-                                tv.setText(selected);
-                            expanded = true;
-                        } else {
-                            //display shortened representation of selected values
-                            tv.setText(DropDownListAdapter.getSelected());
-                            expanded = false;
-                        }
-                    }
-                });
 
             }
         }, new Response.ErrorListener() {
@@ -269,8 +254,6 @@ public class EmployeeHomeActivity extends ActionBarActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.e("SEnd", "Login Error: " + error.getMessage());
-//                Toast.makeText(getApplicationContext(),
-//                        error.getMessage(), Toast.LENGTH_LONG).show();
 
             }
         }) {
@@ -285,19 +268,65 @@ public class EmployeeHomeActivity extends ActionBarActivity {
             }
         };
         AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
-
-
-
-
-
-	/*SelectBox is the TextView where the selected values will be displayed in the form of "Item 1 & 'n' more".
-    	 * When this selectBox is clicked it will display all the selected values
-    	 * and when clicked again it will display in shortened representation as before.
-    */
-
-
-
     }
+
+    private void getUserAbilities(){
+        userAbilities = new ArrayList<Ability>();
+
+        String tag_string_req = "req_abilities";
+        StringRequest strReq = new StringRequest(Request.Method.POST,
+                AppConfig.URL_ABILITIES, new Response.Listener<String>() {
+
+            //Log.d("DEsdUG", "Somthng request sender response: ");
+            @Override
+            public void onResponse(String response) {
+                Log.i("DEBUG", "Request sender response: " + response.toString());
+
+
+                try {
+                    JSONObject jObj = new JSONObject(response);
+                    JSONArray jAbilities = jObj.getJSONArray("abilities");
+                    for(int i=0;i<jAbilities.length();i++)
+                    {
+                        Ability ab =new Ability(jAbilities.getJSONObject(i).getInt("id"),jAbilities.getJSONObject(i).getString("name"),jAbilities.getJSONObject(i).getString("description"));
+                        userAbilities.add(ab);
+                    }
+                } catch (JSONException e) {
+                    // JSON error
+                    e.printStackTrace();
+                }
+                for (int i = 0; i < userAbilities.size(); i++){
+                    listItems.add(userAbilities.get(i).getName());
+                    Log.d("ADAPTER","userAbilities.get(i).getName()");
+                }
+
+
+                adapter.notifyDataSetChanged();
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("SEnd", "Login Error: " + error.getMessage());
+
+            }
+        }) {
+
+            @Override
+            protected Map<String, String> getParams() {
+                // Posting parameters to login url
+                Map<String, String> params = new HashMap<>();
+                params.put("tag", "getUser");
+                params.put("username", user.get(SessionManager.KEY_USERNAME));
+
+                return params;
+            }
+        };
+        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+    }
+
+
 
     private void initiatePopUp(ArrayList<Ability> abilities, TextView tv){
         LayoutInflater inflater = (LayoutInflater)EmployeeHomeActivity.this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);

@@ -83,7 +83,7 @@ public class DropDownListAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-                setText(position1);
+               setText(position1);
             }
         });
         Log.d("WAHT", "checksele:" + position);
@@ -108,7 +108,7 @@ public class DropDownListAdapter extends BaseAdapter {
         }
 
         if (selectedCount == 0) {
-            mSelectedItems.setText(R.string.select_string);
+          //  mSelectedItems.setText(R.string.select_string);
         } else if (selectedCount == 1) {
             for (int i = 0; i < EmployeeHomeActivity.checkSelected.length; i++) {
                 if (EmployeeHomeActivity.checkSelected[i] == true) {
@@ -116,7 +116,7 @@ public class DropDownListAdapter extends BaseAdapter {
                     break;
                 }
             }
-            mSelectedItems.setText(firstSelected);
+          //  mSelectedItems.setText(firstSelected);
             setSelected(firstSelected);
         } else if (selectedCount > 1) {
             for (int i = 0; i < EmployeeHomeActivity.checkSelected.length; i++) {

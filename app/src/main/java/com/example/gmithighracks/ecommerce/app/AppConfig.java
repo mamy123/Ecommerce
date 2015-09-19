@@ -9,6 +9,8 @@ public class AppConfig {
 
     public static String URL_ADD_TASK = "http://195.134.67.152/ECommerce2/ECommerce2/index.php/tasks/insertTask";
 
+    public static String URL_ADD_TASK_ABILITIES = "http://195.134.67.152/ECommerce2/ECommerce2/index.php/tasks/insertTaskAbilities";
+
     // Server user register url
     public static String URL_REGISTER = "http://195.134.67.152/ECommerce2/ECommerce2/index.php/register";
 

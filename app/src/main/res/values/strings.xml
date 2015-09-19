@@ -77,7 +77,8 @@
     <string name="search_task_title">Available Tasks</string>
     <string name="Date" />
     <string name="salary" />
-    <string name="btnAddTask" />
+    <string name="btnAddTask">Add Task</string>
+    <string name="title_activity_add_task">AddTaskActivity</string>
 
 
 </resources>

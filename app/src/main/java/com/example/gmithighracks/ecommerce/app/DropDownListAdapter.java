@@ -10,6 +10,7 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 import android.view.View.OnClickListener;
 
+import com.example.gmithighracks.ecommerce.AddTaskActivity;
 import com.example.gmithighracks.ecommerce.EmployeeHomeActivity;
 import com.example.gmithighracks.ecommerce.R;
 
@@ -24,6 +25,7 @@ public class DropDownListAdapter extends BaseAdapter {
     private static String firstSelected = "";
     private ViewHolder holder;
     private static String selected = "";	//shortened selected values representation
+    private String activity;
 
     public static String getSelected() {
         return selected;
@@ -34,7 +36,8 @@ public class DropDownListAdapter extends BaseAdapter {
     }
 
     public DropDownListAdapter(Context context, ArrayList<Ability> items,
-                               TextView tv) {
+                               TextView tv, String activity) {
+        this.activity = activity;
         mListItems = new ArrayList<Ability>();
         mListItems.addAll(items);
         mInflater = LayoutInflater.from(context);
@@ -83,14 +86,22 @@ public class DropDownListAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-               setText(position1);
+                setText(position1);
             }
         });
         Log.d("WAHT", "checksele:" + position);
-        if(EmployeeHomeActivity.checkSelected[position])
-            holder.chkbox.setChecked(true);
-        else
-            holder.chkbox.setChecked(false);
+        if(activity.equals("employeeHome")) {
+            if (EmployeeHomeActivity.checkSelected[position])
+                holder.chkbox.setChecked(true);
+            else
+                holder.chkbox.setChecked(false);
+        }
+        else{
+            if (AddTaskActivity.checkSelected[position])
+                holder.chkbox.setChecked(true);
+            else
+                holder.chkbox.setChecked(false);
+        }
         return convertView;
     }
 
@@ -99,34 +110,66 @@ public class DropDownListAdapter extends BaseAdapter {
      * Function which updates the selected values display and information(checkSelected[])
      * */
     private void setText(int position1){
-        if (!EmployeeHomeActivity.checkSelected[position1]) {
-            EmployeeHomeActivity.checkSelected[position1] = true;
-            selectedCount++;
-        } else {
-            EmployeeHomeActivity.checkSelected[position1] = false;
-            selectedCount--;
-        }
+        if(activity.equals("employeeHome")) {
+            if (!EmployeeHomeActivity.checkSelected[position1]) {
+                EmployeeHomeActivity.checkSelected[position1] = true;
+                selectedCount++;
+            } else {
+                EmployeeHomeActivity.checkSelected[position1] = false;
+                selectedCount--;
+            }
 
-        if (selectedCount == 0) {
-          //  mSelectedItems.setText(R.string.select_string);
-        } else if (selectedCount == 1) {
-            for (int i = 0; i < EmployeeHomeActivity.checkSelected.length; i++) {
-                if (EmployeeHomeActivity.checkSelected[i] == true) {
-                    firstSelected = mListItems.get(i).getName();
-                    break;
+            if (selectedCount == 0) {
+                //  mSelectedItems.setText(R.string.select_string);
+            } else if (selectedCount == 1) {
+                for (int i = 0; i < EmployeeHomeActivity.checkSelected.length; i++) {
+                    if (EmployeeHomeActivity.checkSelected[i] == true) {
+                        firstSelected = mListItems.get(i).getName();
+                        break;
+                    }
                 }
-            }
-          //  mSelectedItems.setText(firstSelected);
-            setSelected(firstSelected);
-        } else if (selectedCount > 1) {
-            for (int i = 0; i < EmployeeHomeActivity.checkSelected.length; i++) {
-                if (EmployeeHomeActivity.checkSelected[i] == true) {
-                    firstSelected = mListItems.get(i).getName();
-                    break;
+                //  mSelectedItems.setText(firstSelected);
+                setSelected(firstSelected);
+            } else if (selectedCount > 1) {
+                for (int i = 0; i < EmployeeHomeActivity.checkSelected.length; i++) {
+                    if (EmployeeHomeActivity.checkSelected[i] == true) {
+                        firstSelected = mListItems.get(i).getName();
+                        break;
+                    }
                 }
+                mSelectedItems.setText(firstSelected + " & " + (selectedCount - 1) + " more");
+                setSelected(firstSelected + " & " + (selectedCount - 1) + " more");
             }
-            mSelectedItems.setText(firstSelected + " & "+ (selectedCount - 1) + " more");
-            setSelected(firstSelected + " & "+ (selectedCount - 1) + " more");
+        }else {
+            if (!AddTaskActivity.checkSelected[position1]) {
+                AddTaskActivity.checkSelected[position1] = true;
+                selectedCount++;
+            } else {
+                AddTaskActivity.checkSelected[position1] = false;
+                selectedCount--;
+            }
+
+            if (selectedCount == 0) {
+                //  mSelectedItems.setText(R.string.select_string);
+            } else if (selectedCount == 1) {
+                for (int i = 0; i < AddTaskActivity.checkSelected.length; i++) {
+                    if (AddTaskActivity.checkSelected[i] == true) {
+                        firstSelected = mListItems.get(i).getName();
+                        break;
+                    }
+                }
+                //  mSelectedItems.setText(firstSelected);
+                setSelected(firstSelected);
+            } else if (selectedCount > 1) {
+                for (int i = 0; i < AddTaskActivity.checkSelected.length; i++) {
+                    if (AddTaskActivity.checkSelected[i] == true) {
+                        firstSelected = mListItems.get(i).getName();
+                        break;
+                    }
+                }
+                mSelectedItems.setText(firstSelected + " & " + (selectedCount - 1) + " more");
+                setSelected(firstSelected + " & " + (selectedCount - 1) + " more");
+            }
         }
     }
 

@@ -68,6 +68,16 @@
             android:layout_height="137dp"
             android:hint="Enter Full Description" />
 
+        <Button
+            android:id="@+id/btnAddAbilities"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dip"
+            android:background="#85b7ff"
+            android:onClick="registerUser"
+            android:text="@string/btnAddTask"
+            android:textColor="#fff" />
+
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"

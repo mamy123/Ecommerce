@@ -67,7 +67,7 @@ public class AddTaskService extends IntentService {
 //        pDialog = new ProgressDialog(getApplicationContext());
 //        pDialog.setCancelable(false);
         // SQLite database handler
-        db = new SQLiteHelper(getApplicationContext());
+
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         String title = intent.getStringExtra("title");
         String shortDescription = intent.getStringExtra("shortDescription");
@@ -79,36 +79,19 @@ public class AddTaskService extends IntentService {
         String emp =  intent.getStringExtra("username");
 
         try {
-            // [START register_for_gcm]
-            // Initially this call goes out to the network to retrieve the token, subsequent calls
-            // are local.
-            // [START get_token]
-       /*     InstanceID instanceID = InstanceID.getInstance(this);
-            String token = instanceID.getToken(getString(R.string.gcm_defaultSenderId),
-                    GoogleCloudMessaging.INSTANCE_ID_SCOPE, null);
-            // [END get_token]
-            Log.i(TAG, "GCM Registration Token: " + token);*/
 
-            // TODO: Implement this method to send any registration to your app's servers.
             sendNewTaskToServer(title, shortDescription, fullDescription, startDate, endDate, salary,emp);
 
-            // Subscribe to topic channels
-        //    subscribeTopics( token);
 
-            // You should store a boolean that indicates whether the generated token has been
-            // sent to your server. If the boolean is false, send the token to your server,
-            // otherwise your server should have already received the token.
-            sharedPreferences.edit().putBoolean(QuickstartPreferences.SENT_TOKEN_TO_SERVER, true).apply();
-            // [END register_for_gcm]
         } catch (Exception e) {
             Log.d(TAG, "Failed to complete token refresh", e);
             // If an exception happens while fetching the new token or updating our registration data
             // on a third-party server, this ensures that we'll attempt the update at a later time.
-            sharedPreferences.edit().putBoolean(QuickstartPreferences.SENT_TOKEN_TO_SERVER, false).apply();
+//            sharedPreferences.edit().putBoolean(QuickstartPreferences.SENT_TOKEN_TO_SERVER, false).apply();
         }
         // Notify UI that registration has completed, so the progress indicator can be hidden.
-        Intent addTaskComplete = new Intent(QuickstartPreferences.ADD_TASK_COMPLETE);
-        LocalBroadcastManager.getInstance(this).sendBroadcast(addTaskComplete);
+//        Intent addTaskComplete = new Intent(QuickstartPreferences.ADD_TASK_COMPLETE);
+//        LocalBroadcastManager.getInstance(this).sendBroadcast(addTaskComplete);
 
     }
 
@@ -135,45 +118,18 @@ public class AddTaskService extends IntentService {
                 try {
                     JSONObject jObj = new JSONObject(response);
                     int success = jObj.getInt("success");
+
                     if (success == 1) {
-                        // User successfully stored in MySQL
-                        // Now store the user in sqlite
 
-                        //JSONObject user = jObj.getJSONObject("user");
-                      //  String userName = jObj.getString("username");
                         Log.i(TAG, "mpiak edw" );
+                        int id = jObj.getInt("id");
 
+                        Intent i = new Intent("add_task");
+                      //  i.putExtra("msg","OK");
+                        i.putExtra("taskId", String.valueOf(id));
 
-                        // Inserting row in users table
-                        // db.addUser(userName, firstName,surname, email, usertype);
+                        sendBroadcast(i);
 
-
-
-                       // session.setLogin(true,usertype,username,firstName,surname);
-                        sendBroadcast(new Intent("add_task").putExtra("msg", "OK"));
-//                        hideDialog();
-                        // Launch login activity
-
-
-//                        if(session.isLoggedIn()){
-//                            if(usertype.equals("employee")){
-//                                Intent intent = new Intent(
-//                                        getBaseContext(), EmployeeHomeActivity.class);
-//                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                                startActivity(intent);
-//
-//                            }
-//                            else {
-//
-//                                Intent intent = new Intent(
-//                                        getBaseContext(),
-//                                        EmployerHomeActivity.class);
-//                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                                startActivity(intent);
-//
-//                            }
-//
-//                        }
                     } else {
 
                         // Error occurred in registration. Get the error

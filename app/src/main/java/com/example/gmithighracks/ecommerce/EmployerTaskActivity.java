@@ -73,7 +73,7 @@ public class EmployerTaskActivity extends AppCompatActivity {
                         JSONArray jTask = jObj.getJSONArray("task");
                         //Integer ii = (jAbilities.getJSONObject(i).getInt("id"));
                         for(int i=0;i<jTask.length();i++) {
-                            t = new Tasks(jTask.getJSONObject(i).getString("name"), jTask.getJSONObject(i).getString("shortDescription"), jTask.getJSONObject(i).getString("fullDescription"), jTask.getJSONObject(i).getString("startTime"), jTask.getJSONObject(i).getString("endTime"), jTask.getJSONObject(i).getInt("salary"), jTask.getJSONObject(i).getInt("closed"), jTask.getJSONObject(i).getString("created_by"));
+          //                  t = new Tasks(jTask.getJSONObject(i).getString("name"), jTask.getJSONObject(i).getString("shortDescription"), jTask.getJSONObject(i).getString("fullDescription"), jTask.getJSONObject(i).getString("startTime"), jTask.getJSONObject(i).getString("endTime"), jTask.getJSONObject(i).getInt("salary"), jTask.getJSONObject(i).getInt("closed"), jTask.getJSONObject(i).getString("created_by"));
                         }
                        // session.setLogin(true,userType,username,firstName, surname);
 

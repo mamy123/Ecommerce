@@ -66,6 +66,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.gmithighracks.ecommerce.LoginActivity" />
         </activity>
+        <activity
+            android:name=".AddTaskActivity"
+            android:label="@string/title_activity_add_task" >
+        </activity>
 
         <receiver
             android:name="com.google.android.gms.gcm.GcmReceiver"
@@ -78,6 +82,11 @@
             </intent-filter>
         </receiver>
 
+        <service
+            android:name=".service.AddTaskService"
+            android:enabled="true"
+            android:exported="true" >
+        </service>
         <service
             android:name=".service.GcmMessageListener"
             android:exported="false" >

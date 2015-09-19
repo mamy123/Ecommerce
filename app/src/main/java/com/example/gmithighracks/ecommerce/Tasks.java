@@ -9,11 +9,23 @@ public class Tasks {
 
     private String name,sDescription,fDescription,created_by;
     private String stime,etime;
-    private int salary,closed;
+    private int id;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    private int salary;
+    private int closed;
 
 
-    public Tasks (String n, String sDes,String fDes,String stim,String etim,int sal,int clo,String create)
+    public Tasks (int id, String n, String sDes,String fDes,String stim,String etim,int sal,int clo,String create)
     {
+        this.id = id;
         this.name = n;
         this.sDescription = sDes;
         this.fDescription = fDes;

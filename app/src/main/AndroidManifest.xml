@@ -105,14 +105,6 @@
         </service>
 
         <activity
-            android:name=".service.WorkHistoryActivity"
-            android:label="@string/title_activity_work_history"
-            android:parentActivityName=".EmployeeHomeActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.gmithighracks.ecommerce.EmployeeHomeActivity" />
-        </activity>
-        <activity
             android:name=".ProfileActivity"
             android:label="@string/title_activity_profile" >
         </activity>

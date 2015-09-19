@@ -18,6 +18,7 @@ import com.example.gmithighracks.ecommerce.app.AppController;
 import com.example.gmithighracks.ecommerce.helper.SessionManager;
 import com.google.android.gms.gcm.Task;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -39,23 +40,23 @@ public class EmployerTaskActivity extends AppCompatActivity {
 
         // name
         final  String username = user.get("username");
-        findTasks(username);
+        Tasks task = findTask(username);
     }
 
-    private ArrayList<Tasks> findTasks(final String  username )
+    private Tasks findTask(final String  username )
     {
 
-        String tag_string_req = "req_getTasks";
+        String tag_string_req = "req_getTask";
 
-        pDialog.setMessage("Logging in ...");
+        pDialog.setMessage("Getting Task ...");
         showDialog();
 
         StringRequest strReq = new StringRequest(Request.Method.POST,
-                AppConfig.URL_LOGIN, new Response.Listener<String>() {
+                AppConfig.URL_GET_TASK, new Response.Listener<String>() {
 
             @Override
             public void onResponse(String response) {
-                Log.d(TAG, "Login Response: " + response.toString());
+                Log.d(TAG, "Get Task Response: " + response.toString());
                 hideDialog();
 
                 try {
@@ -68,6 +69,12 @@ public class EmployerTaskActivity extends AppCompatActivity {
                         // Create login session
                         String firstName = jObj.getString("firstname");
                         String surname = jObj.getString("surname");
+                        Tasks t;
+                        JSONArray jTask = jObj.getJSONArray("task");
+                        //Integer ii = (jAbilities.getJSONObject(i).getInt("id"));
+                        for(int i=0;i<jTask.length();i++) {
+                            t = new Tasks(jTask.getJSONObject(i).getString("name"), jTask.getJSONObject(i).getString("shortDescription"), jTask.getJSONObject(i).getString("fullDescription"), jTask.getJSONObject(i).getString("startTime"), jTask.getJSONObject(i).getString("endTime"), jTask.getJSONObject(i).getInt("salary"), jTask.getJSONObject(i).getInt("closed"), jTask.getJSONObject(i).getString("created_by"));
+                        }
                        // session.setLogin(true,userType,username,firstName, surname);
 
 

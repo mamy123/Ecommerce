@@ -24,5 +24,7 @@ public class AppConfig {
 
     public static String URL_GET_TASKS = "http://195.134.67.152/ECommerce2/ECommerce2/index.php/tasks/gettasks";
 
+    public static String URL_GET_TASK = "http://195.134.67.152/ECommerce2/ECommerce2/index.php/tasks/gettask";
+
 
 }

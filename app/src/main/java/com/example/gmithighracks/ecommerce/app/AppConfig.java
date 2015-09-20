@@ -34,6 +34,8 @@ public class AppConfig {
 
     public static String URL_SEARCH = "http://195.134.67.152/ECommerce2/ECommerce2/index.php/competitions/findemployees";
 
+    public static String URL_GET_OFFERS = "http://195.134.67.152/ECommerce2/ECommerce2/index.php/competitions/getoffers";
+
 
 
 }

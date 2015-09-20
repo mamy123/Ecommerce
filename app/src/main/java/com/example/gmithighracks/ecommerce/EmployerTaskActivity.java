@@ -35,7 +35,7 @@ public class EmployerTaskActivity extends AppCompatActivity {
     //  private ProgressDialog pDialog;
     private SessionManager session;
     TextView lastMsg;
-    private Button btnFind;
+    private Button btnFind,btnOffers;
     private static final String TAG = EmployerTaskActivity.class.getSimpleName();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +45,7 @@ public class EmployerTaskActivity extends AppCompatActivity {
         lastMsg = (TextView)findViewById(R.id.textView4);
 
         btnFind = (Button) findViewById(R.id.button);
+        btnOffers = (Button) findViewById(R.id.button3);
         SessionManager session = new SessionManager(getApplicationContext());
         HashMap<String, String> user = session.getUserDetails();
 
@@ -68,12 +69,31 @@ public class EmployerTaskActivity extends AppCompatActivity {
 
         });
 
+        btnOffers.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View view) {
+
+                Offers(taskName);
+            }
+
+
+        });
+
 
     }
 
     public void findEmployees(String taskName)
     {
         Intent intent = new Intent(EmployerTaskActivity.this, SearchEmployeesActivity.class);
+        // add the selected text item to our intent.
+        intent.putExtra("selectedTask", taskName);
+        startActivity(intent);
+        finish();
+    }
+
+    public void Offers(String taskName)
+    {
+        Intent intent = new Intent(EmployerTaskActivity.this, OffersActivity.class);
         // add the selected text item to our intent.
         intent.putExtra("selectedTask", taskName);
         startActivity(intent);

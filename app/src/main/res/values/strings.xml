@@ -84,6 +84,7 @@
     <string name="employee_history">My Task History</string>
     <string name="title_activity_search_employees">SearchEmployeesActivity</string>
     <string name="title_activity_search_history">SearchHistoryActivity</string>
+    <string name="title_activity_offers">OffersActivity</string>
 
 
 </resources>

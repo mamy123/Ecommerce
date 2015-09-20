@@ -8,6 +8,7 @@ import android.content.res.Resources;
 import android.graphics.drawable.BitmapDrawable;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -49,7 +50,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class EmployeeHomeActivity extends ListActivity {
+public class EmployeeHomeActivity extends AppCompatActivity {
 
     private SQLiteHelper db;
     private SessionManager session;
@@ -63,6 +64,7 @@ public class EmployeeHomeActivity extends ListActivity {
     private ProgressDialog pDialog;
     ArrayAdapter<String> adapter;
     ArrayList<String> listItems=new ArrayList<String>();
+    private ListView lv1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,11 +95,7 @@ public class EmployeeHomeActivity extends ListActivity {
             }
         });
 
-        adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1,
-                listItems);
-
-        setListAdapter(adapter);
+        lv1 = (ListView)findViewById(R.id.listView);
 
         searchComp.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -182,7 +180,8 @@ public class EmployeeHomeActivity extends ListActivity {
                         }
 
                     }
-                    adapter.notifyDataSetChanged();
+                    lv1.getAdapter().notify();
+                    //adapter.notifyDataSetChanged();
                 }
                 params.put("num", String.valueOf(j));
                 return params;
@@ -246,6 +245,8 @@ public class EmployeeHomeActivity extends ListActivity {
                         Ability ab =new Ability(jAbilities.getJSONObject(i).getInt("id"),jAbilities.getJSONObject(i).getString("name"),jAbilities.getJSONObject(i).getString("description"));
                         abilities.add(ab);
                     }
+
+
                 } catch (JSONException e) {
                     // JSON error
                     e.printStackTrace();
@@ -309,9 +310,10 @@ public class EmployeeHomeActivity extends ListActivity {
                     listItems.add(userAbilities.get(i).getName());
                     Log.d("ADAPTER","userAbilities.get(i).getName()");
                 }
+                lv1.setAdapter(new ArrayAdapter<String>(EmployeeHomeActivity.
+                        this, android.R.layout.simple_list_item_1, listItems));
 
-
-                adapter.notifyDataSetChanged();
+             //   lv1.notifyDataSetChanged();
 
             }
         }, new Response.ErrorListener() {

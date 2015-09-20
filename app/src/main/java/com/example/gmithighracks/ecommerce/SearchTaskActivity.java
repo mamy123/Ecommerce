@@ -8,7 +8,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -27,13 +30,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SearchTaskActivity extends ListActivity {
+public class SearchTaskActivity extends AppCompatActivity {
 
     private SessionManager session;
     private HashMap<String, String> user;
     private  ArrayList<Tasks> tasks;
     ArrayAdapter<String> adapter;
     ArrayList<String> listItems=new ArrayList<String>();
+    private ListView lv1;
+    private int commonSkills;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,11 +49,13 @@ public class SearchTaskActivity extends ListActivity {
         user = session.getUserDetails();
         tasks = new ArrayList<Tasks>();
         getAllTasks();
-        adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1,
-                listItems);
+        lv1 = (ListView)findViewById(R.id.listView);
+//        adapter = new ArrayAdapter<String>(this,
+//                android.R.layout.simple_list_item_1,
+//                listItems);
 
-        setListAdapter(adapter);
+       // lv1.setAdapter(adapter);
+
     }
 
     @Override
@@ -92,14 +99,17 @@ public class SearchTaskActivity extends ListActivity {
 
                 try {
                     JSONObject jObj = new JSONObject(response);
-                    JSONArray jTasks = jObj.getJSONArray("abilities");
+                    JSONArray jTasks = jObj.getJSONArray("tasks");
                     for(int i=0;i<jTasks.length();i++)
                     {
                         Tasks task =new Tasks(jTasks.getJSONObject(i).getInt("id"),jTasks.getJSONObject(i).getString("name"),jTasks.getJSONObject(i).getString("shortDescription"),jTasks.getJSONObject(i).getString("fullDescription"),jTasks.getJSONObject(i).getString("startTime"),jTasks.getJSONObject(i).getString("endTime"),jTasks.getJSONObject(i).getInt("salary"),jTasks.getJSONObject(i).getInt("closed"),jTasks.getJSONObject(i).getString("created_by"));
+                        commonSkills = jTasks.getJSONObject(i).getInt("counter");
                         tasks.add(task);
                         listItems.add("Task Title: "+task.getName()+ "| Task Description: " + task.getsDescription());
                     }
-                    adapter.notifyDataSetChanged();
+                    lv1.setAdapter(new ArrayAdapter<String>(SearchTaskActivity.
+                            this, android.R.layout.simple_list_item_1, listItems));
+                    lv1.setOnItemClickListener(new ListClickHandler());
 
                 } catch (JSONException e) {
                     // JSON error
@@ -126,6 +136,30 @@ public class SearchTaskActivity extends ListActivity {
             }
         };
         AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+    }
+
+    public class ListClickHandler implements android.widget.AdapterView.OnItemClickListener {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+
+            System.out.println("position is:" + position);
+            String text = ((TextView) view).getText().toString();
+            System.out.println(text);
+            // create intent to start another activity
+            Intent intent = new Intent(SearchTaskActivity.this, EmployeeViewTaskActivity.class);
+            // add the selected text item to our intent.
+            intent.putExtra("name", tasks.get(position).getName());
+            intent.putExtra("id",String.valueOf(tasks.get(position).getId()));
+            intent.putExtra("sDescription", tasks.get(position).getsDescription());
+            intent.putExtra("fDescription",tasks.get(position).getfDescription());
+            intent.putExtra("startTime",tasks.get(position).getStime());
+            intent.putExtra("stopTime", tasks.get(position).getEtime());
+            intent.putExtra("created_by",tasks.get(position).getCreated_by());
+            intent.putExtra("salary",String.valueOf(tasks.get(position).getSalary()));
+            startActivity(intent);
+            finish();
+        }
     }
 
     public void logout(View view){

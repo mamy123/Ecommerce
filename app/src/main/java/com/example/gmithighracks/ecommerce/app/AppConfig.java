@@ -32,6 +32,8 @@ public class AppConfig {
 
     public static String URL_GET_TASK = "http://195.134.67.152/ECommerce2/ECommerce2/index.php/tasks/gettask";
 
+    public static String URL_SEND_OFFER = "http://195.134.67.152/ECommerce2/ECommerce2/index.php/competitions/insertOffer";
+
 
 
 }

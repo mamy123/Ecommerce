@@ -11,6 +11,10 @@ public class Tasks {
     private String stime,etime;
     private int id;
 
+    public Tasks() {
+
+    }
+
     public int getId() {
         return id;
     }

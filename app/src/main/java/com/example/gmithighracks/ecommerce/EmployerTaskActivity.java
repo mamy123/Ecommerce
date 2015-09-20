@@ -7,6 +7,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -28,28 +32,61 @@ import java.util.Map;
 
 public class EmployerTaskActivity extends AppCompatActivity {
 
-    private ProgressDialog pDialog;
+    //  private ProgressDialog pDialog;
     private SessionManager session;
+    TextView lastMsg;
+    private Button btnFind;
     private static final String TAG = EmployerTaskActivity.class.getSimpleName();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_employer_task);
+        lastMsg = (TextView)findViewById(R.id.textView4);
+
+        btnFind = (Button) findViewById(R.id.button);
         SessionManager session = new SessionManager(getApplicationContext());
         HashMap<String, String> user = session.getUserDetails();
 
+        Intent intent = getIntent();
+
+        // fetch value from key-value pair and make it visible on TextView.
+        final String taskName = intent.getStringExtra("selectedTask");
+
         // name
-        final  String username = user.get("username");
-        Tasks task = findTask(username);
+        //final  String username = user.get("username");
+        Tasks task = findTask(taskName);
+
+
+        btnFind.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View view) {
+
+                findEmployees(taskName);
+            }
+
+
+        });
+
+
     }
 
-    private Tasks findTask(final String  username )
+    public void findEmployees(String taskName)
+    {
+        Intent intent = new Intent(EmployerTaskActivity.this, SearchEmployeesActivity.class);
+        // add the selected text item to our intent.
+        intent.putExtra("selectedTask", taskName);
+        startActivity(intent);
+        finish();
+    }
+
+    private Tasks findTask(final String  taskName )
     {
 
         String tag_string_req = "req_getTask";
 
-        pDialog.setMessage("Getting Task ...");
-        showDialog();
+        //   pDialog.setMessage("Getting Task ...");
+        //  showDialog();
 
         StringRequest strReq = new StringRequest(Request.Method.POST,
                 AppConfig.URL_GET_TASK, new Response.Listener<String>() {
@@ -57,7 +94,7 @@ public class EmployerTaskActivity extends AppCompatActivity {
             @Override
             public void onResponse(String response) {
                 Log.d(TAG, "Get Task Response: " + response.toString());
-                hideDialog();
+
 
                 try {
                     JSONObject jObj = new JSONObject(response);
@@ -67,15 +104,18 @@ public class EmployerTaskActivity extends AppCompatActivity {
                     if (error != 1) {
                         // user successfully logged in
                         // Create login session
-                        String firstName = jObj.getString("firstname");
-                        String surname = jObj.getString("surname");
+                        //   String firstName = jObj.getString("firstname");
+                        //  String surname = jObj.getString("surname");
                         Tasks t;
                         JSONArray jTask = jObj.getJSONArray("task");
                         //Integer ii = (jAbilities.getJSONObject(i).getInt("id"));
-                        for(int i=0;i<jTask.length();i++) {
-                        //    t = new Tasks(jTask.getJSONObject(i).getString("name"), jTask.getJSONObject(i).getString("shortDescription"), jTask.getJSONObject(i).getString("fullDescription"), jTask.getJSONObject(i).getString("startTime"), jTask.getJSONObject(i).getString("endTime"), jTask.getJSONObject(i).getInt("salary"), jTask.getJSONObject(i).getInt("closed"), jTask.getJSONObject(i).getString("created_by"));
-                        }
-                       // session.setLogin(true,userType,username,firstName, surname);
+                        //for(int i=0;i<jTask.length();i++) {
+                        t = new Tasks(jTask.getJSONObject(0).getInt("id"),jTask.getJSONObject(0).getString("name"), jTask.getJSONObject(0).getString("shortDescription"), jTask.getJSONObject(0).getString("fullDescription"), jTask.getJSONObject(0).getString("startTime"), jTask.getJSONObject(0).getString("endTime"), jTask.getJSONObject(0).getInt("salary"), jTask.getJSONObject(0).getInt("closed"), jTask.getJSONObject(0).getString("created_by"));
+                        //}
+                        System.out.println(t.getName()+' '+t.getsDescription());
+                        String s = "Title: " + t.getName()+" Short Description: "+ t.getsDescription()+" Full Description: "+ t.getfDescription()+ " Start Date"+ t.getStime()+" End time: "+ t.getEtime()+" Salary: "+ t.getSalary()+" Created by: "+ t.getCreated_by();
+                        lastMsg.setText(s);
+                        // session.setLogin(true,userType,username,firstName, surname);
 
 
                     } else {
@@ -97,7 +137,7 @@ public class EmployerTaskActivity extends AppCompatActivity {
                 Log.e(TAG, "Get tasks Error: " + error.getMessage());
                 Toast.makeText(getApplicationContext(),
                         error.getMessage(), Toast.LENGTH_LONG).show();
-                hideDialog();
+
             }
         }) {
 
@@ -106,7 +146,7 @@ public class EmployerTaskActivity extends AppCompatActivity {
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("tag", "tasks");
-                params.put("username", username);
+                params.put("taskName", taskName);
 
 
 
@@ -143,13 +183,5 @@ public class EmployerTaskActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void showDialog() {
-        if (!pDialog.isShowing())
-            pDialog.show();
-    }
 
-    private void hideDialog() {
-        if (pDialog.isShowing())
-            pDialog.dismiss();
-    }
 }

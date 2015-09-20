@@ -80,6 +80,8 @@
     <string name="search_task_title">SearchTask</string>
     <string name="btnAddSkillsFinal">Add</string>
     <string name="select_string" />
+    <string name="title_activity_employee_history">EmployeeHistoryActivity</string>
+    <string name="employee_history">My Task History</string>
 
 
 </resources>

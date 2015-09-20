@@ -53,7 +53,7 @@ public class EmployeeHomeActivity extends ListActivity {
 
     private SQLiteHelper db;
     private SessionManager session;
-    private Button searchComp, addAbilities, showAbilities;
+    private Button searchComp, addAbilities, showAbilities, viewHistory;
     private HashMap<String, String> user;
     private PopupWindow pw;
     public static  boolean[] checkSelected;
@@ -80,7 +80,7 @@ public class EmployeeHomeActivity extends ListActivity {
         TextView lastMsg = (TextView)findViewById(R.id.textView2);
         lastMsg.setText(user.get(SessionManager.KEY_FNAME) + " "+ user.get(SessionManager.KEY_SURNAME));
         searchComp = (Button) findViewById(R.id.btnSearchComp);
-       // showAbilities = (Button) findViewById(R.id.btndropDownListSkills);
+        viewHistory = (Button) findViewById(R.id.btnHistory);
         addAbilities = (Button) findViewById(R.id.btnAddSkillsFinal);
         getUserAbilities();
         getAllAbilities();
@@ -99,13 +99,23 @@ public class EmployeeHomeActivity extends ListActivity {
 
         setListAdapter(adapter);
 
-        searchComp.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
+        searchComp.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
                 Intent intent = new Intent(EmployeeHomeActivity.this, SearchTaskActivity.class);
                 startActivity(intent);
                 finish();
             }
         });
+
+        viewHistory.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(EmployeeHomeActivity.this, EmployeeHistoryActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
     }
 
     public void sendSelectedAbilities(View view) {

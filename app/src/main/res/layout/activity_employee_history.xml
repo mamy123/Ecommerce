@@ -4,16 +4,14 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="com.example.gmithighracks.ecommerce.SearchTaskActivity">
+    tools:context="com.example.gmithighracks.ecommerce.EmployeeHistoryActivity">
 
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dip"
-        android:text="@string/search_task_title"
+    <TextView android:text="@string/employee_history"
         android:textSize="25sp"
         android:textStyle="bold"
-        android:id="@+id/textView" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView4" />
 
     <ListView
         android:id="@android:id/list"
@@ -26,7 +24,6 @@
         android:layout_alignRight="@+id/btnAddSkills"
         android:layout_alignEnd="@+id/btnAddSkills"
         android:layout_below="@+id/textView4" />
-
     <Button
         android:id="@+id/btnLogout"
         android:layout_width="fill_parent"

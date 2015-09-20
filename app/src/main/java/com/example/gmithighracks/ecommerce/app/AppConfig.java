@@ -11,6 +11,8 @@ public class AppConfig {
 
     public static String URL_ADD_TASK_ABILITIES = "http://195.134.67.152/ECommerce2/ECommerce2/index.php/tasks/insertTaskAbilities";
 
+    public static String URL_EMPLOYEE_HISTORY = "http://195.134.67.152/ECommerce2/ECommerce2/index.php/tasks/getEmployeeTaskHistory";
+
     // Server user register url
     public static String URL_REGISTER = "http://195.134.67.152/ECommerce2/ECommerce2/index.php/register";
 
@@ -26,7 +28,10 @@ public class AppConfig {
 
     public static String URL_GET_TASKS = "http://195.134.67.152/ECommerce2/ECommerce2/index.php/tasks/gettasks";
 
+    public static String URL_GET_TASKS_SORTED = "http://195.134.67.152/ECommerce2/ECommerce2/index.php/tasks/getAllTasksSorted";
+
     public static String URL_GET_TASK = "http://195.134.67.152/ECommerce2/ECommerce2/index.php/tasks/gettask";
+
 
 
 }

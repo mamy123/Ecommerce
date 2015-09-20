@@ -19,6 +19,8 @@ import java.util.HashMap;
 public class EmployerHomeActivity extends ActionBarActivity {
 
     private Button btnNewCompetition, btnCompetitions;
+    SessionManager session ;
+    HashMap<String, String> user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,8 +31,8 @@ public class EmployerHomeActivity extends ActionBarActivity {
         btnNewCompetition = (Button) findViewById(R.id.btnNewCompetition);
         btnCompetitions = (Button) findViewById(R.id.btnCompetitions);
         // session manager
-        SessionManager session = new SessionManager(getApplicationContext());
-        HashMap<String, String> user = session.getUserDetails();
+        session= new SessionManager(getApplicationContext());
+        user = session.getUserDetails();
         //  String text = String.format(res.getString(R.string.employeeName), user.get("firstName"));
       //  TextView lastMsg = (TextView)findViewById(R.id.textView2);
         TextView lastMsg = (TextView)findViewById(R.id.textView2);
@@ -88,5 +90,13 @@ public class EmployerHomeActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void logout(View view){
+        session.deleteSession();
+        Intent intent = new Intent(EmployerHomeActivity.this, LoginActivity.class);
+        startActivity(intent);
+        finish();
+
     }
 }

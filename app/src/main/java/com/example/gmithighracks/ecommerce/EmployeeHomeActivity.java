@@ -87,6 +87,7 @@ public class EmployeeHomeActivity extends AppCompatActivity {
         getUserAbilities();
         getAllAbilities();
         Button createButton = (Button)findViewById(R.id.btnAddSkills);
+        tv = (TextView) findViewById(R.id.skillsTv);
         createButton.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
@@ -185,8 +186,7 @@ public class EmployeeHomeActivity extends AppCompatActivity {
                         }
 
 
-//                    lv1.setAdapter(new ArrayAdapter<String>(EmployeeHomeActivity.
-//                            this, android.R.layout.simple_list_item_1, listItems));
+//
                     //lv1.setOnItemClickListener(new ListClickHandler());
 //                    synchronized(this) {
 //                        lv1.getAdapter().notify();

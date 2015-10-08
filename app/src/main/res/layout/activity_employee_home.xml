@@ -59,9 +59,16 @@
         android:textSize="20sp"
         android:textStyle="bold"
         android:id="@+id/textView3"
+        android:layout_below="@+id/btnHistory"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/skillsTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/select_string"
         android:layout_centerVertical="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_centerHorizontal="true" />
 
 
     <ListView
@@ -69,12 +76,12 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:drawSelectorOnTop="false"
-        android:layout_below="@+id/textView3"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_above="@+id/btnAddSkills"
         android:layout_alignRight="@+id/btnAddSkills"
-        android:layout_alignEnd="@+id/btnAddSkills" />
+        android:layout_alignEnd="@+id/btnAddSkills"
+        android:layout_below="@+id/skillsTv" />
     <!--<TextView-->
         <!--android:id="@+id/DropDownListSelectBox"-->
         <!--android:layout_width="wrap_content"-->

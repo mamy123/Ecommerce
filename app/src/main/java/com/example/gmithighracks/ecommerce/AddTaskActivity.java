@@ -132,7 +132,7 @@ public class AddTaskActivity extends AppCompatActivity {
             }
         });
 
-
+//
 
         dataUpdateReceiver =new DataUpdateReceiver();
         LocalBroadcastManager bManager = LocalBroadcastManager.getInstance(this);

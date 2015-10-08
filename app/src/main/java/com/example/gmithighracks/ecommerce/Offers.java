@@ -1,13 +1,7 @@
 package com.example.gmithighracks.ecommerce;
 
-/**
-<<<<<<< HEAD
- * Created by nikos on 20-Sep-15.
- */
-public class Offers {
-=======
- * Created by gmithighracks on 9/20/15.
- */
+
+
 public class Offers
 {
 
@@ -66,5 +60,5 @@ public class Offers
     public void setPrice(double price) {
         this.price = price;
     }
->>>>>>> origin/master
+
 }

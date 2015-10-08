@@ -96,6 +96,11 @@ public class EmployeeHomeActivity extends AppCompatActivity {
         });
 
         lv1 = (ListView)findViewById(R.id.listView);
+        adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1,
+                listItems);
+
+        lv1.setAdapter(adapter);
 
         searchComp.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -176,12 +181,18 @@ public class EmployeeHomeActivity extends AppCompatActivity {
                         j++;
                         params.put("ability" + j, String.valueOf(abilities.get(i).getId()));
                         if(!userAbilities.contains(abilities.get(i))){
-                            listItems.add(userAbilities.get(i).getName());
+                            listItems.add(abilities.get(i).getName());
                         }
 
-                    }
-                    lv1.getAdapter().notify();
+
+//                    lv1.setAdapter(new ArrayAdapter<String>(EmployeeHomeActivity.
+//                            this, android.R.layout.simple_list_item_1, listItems));
+                    //lv1.setOnItemClickListener(new ListClickHandler());
+//                    synchronized(this) {
+//                        lv1.getAdapter().notify();
+//                    }
                     //adapter.notifyDataSetChanged();
+                    }
                 }
                 params.put("num", String.valueOf(j));
                 return params;
@@ -392,6 +403,7 @@ public class EmployeeHomeActivity extends AppCompatActivity {
         if (pDialog.isShowing())
             pDialog.dismiss();
     }
+
 
 
 }

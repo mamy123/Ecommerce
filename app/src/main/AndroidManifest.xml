@@ -32,8 +32,9 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:screenOrientation="portrait"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme"
+        android:screenOrientation="portrait">
+
         <activity
             android:name=".LoginActivity"
             android:label="@string/app_name" >
@@ -52,12 +53,12 @@
                 android:value="com.example.gmithighracks.ecommerce.LoginActivity" />
         </activity>
         <activity
-            android:name=".SearchTaskActivity"
-            android:label="@string/title_activity_home"
-            android:parentActivityName=".LoginActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.gmithighracks.ecommerce.EmployeeHomeActivity" />
+        android:name=".SearchTaskActivity"
+        android:label="@string/title_activity_home"
+        android:parentActivityName=".LoginActivity" >
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value="com.example.gmithighracks.ecommerce.EmployeeHomeActivity" />
         </activity>
         <activity
             android:name=".RegisterActivity"
@@ -129,10 +130,6 @@
         <activity
             android:name=".EmployeeHistoryActivity"
             android:label="@string/title_activity_employee_history" >
-        </activity>
-        <activity
-            android:name=".EmployeeViewTaskActivity"
-            android:label="@string/title_activity_employee_view_task" >
         </activity>
     </application>
 

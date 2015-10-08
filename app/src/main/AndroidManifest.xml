@@ -61,6 +61,14 @@
             android:value="com.example.gmithighracks.ecommerce.EmployeeHomeActivity" />
         </activity>
         <activity
+            android:name=".EmployeeViewTaskActivity"
+            android:label="@string/title_activity_home"
+            android:parentActivityName=".LoginActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.gmithighracks.ecommerce.EmployeeHomeActivity" />
+        </activity>
+        <activity
             android:name=".RegisterActivity"
             android:label="@string/title_activity_register"
             android:parentActivityName=".LoginActivity" >
@@ -76,6 +84,39 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.gmithighracks.ecommerce.LoginActivity" />
         </activity>
+        <activity
+            android:name=".GetUserTasksActivity"
+            android:label="@string/title_activity_employer_home"
+            android:parentActivityName=".LoginActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.gmithighracks.ecommerce.EmployerHomeActivity" />
+        </activity>
+        <activity
+            android:name=".EmployerTaskActivity"
+            android:label="@string/title_activity_employer_home"
+            android:parentActivityName=".LoginActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.gmithighracks.ecommerce.GetUserTasksActivity" />
+        </activity>
+        <activity
+            android:name=".SearchEmployeesActivity"
+            android:label="@string/title_activity_employer_home"
+            android:parentActivityName=".LoginActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.gmithighracks.ecommerce.EmployerTaskActivity" />
+        </activity>
+        <activity
+            android:name=".OffersActivity"
+            android:label="@string/title_activity_employer_home"
+            android:parentActivityName=".LoginActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.gmithighracks.ecommerce.EmployerTaskActivity" />
+        </activity>
+
         <activity
             android:name=".AddTaskActivity"
             android:label="@string/title_activity_add_task" >
@@ -130,6 +171,9 @@
         <activity
             android:name=".EmployeeHistoryActivity"
             android:label="@string/title_activity_employee_history" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.gmithighracks.ecommerce.EmployeeHomeActivity" />
         </activity>
     </application>
 
